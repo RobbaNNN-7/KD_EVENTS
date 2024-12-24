@@ -1,24 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Navigation
-    const burger = document.querySelector('.burger');
-    const nav = document.querySelector('.nav-links');
-    const navLinks = document.querySelectorAll('.nav-links li');
+    // Existing JavaScript code...
 
-    burger.addEventListener('click', () => {
-        nav.classList.toggle('nav-active');
-
-        navLinks.forEach((link, index) => {
-            if (link.style.animation) {
-                link.style.animation = '';
-            } else {
-                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-            }
-        });
-
-        burger.classList.toggle('toggle');
+    // Parallax effect for hero background
+    const heroBackground = document.querySelector('.hero-background');
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.pageYOffset;
+        heroBackground.style.transform = `translateY(${scrollPosition * 0.5}px)`;
     });
 
-    // Smooth Scrolling
+    // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -28,25 +18,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Rest of the existing JavaScript code...
+
+  
+    // Smooth Scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+  
     // Contact Modal
     const modal = document.getElementById('contact-modal');
     const contactBtn = document.querySelector('.contact-btn');
     const closeBtn = document.getElementsByClassName('close')[0];
-
+  
     contactBtn.onclick = () => {
         modal.style.display = 'block';
     }
-
+  
     closeBtn.onclick = () => {
         modal.style.display = 'none';
     }
-
+  
     window.onclick = (event) => {
         if (event.target == modal) {
             modal.style.display = 'none';
         }
     }
-
+  
     // Form Submission
     const bookingForm = document.getElementById('booking-form');
     bookingForm.addEventListener('submit', (e) => {
@@ -54,26 +57,87 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Thank you for your inquiry! We will get back to you soon.');
         bookingForm.reset();
     });
-
+  
+    // Theme Toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+  
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-theme');
+        localStorage.setItem('theme', body.classList.contains('dark-theme') ? 'dark' : 'light');
+    });
+  
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        body.classList.add('dark-theme');
+    }
+  
     // Testimonial Slider
     let currentTestimonial = 0;
     const testimonials = document.querySelectorAll('.testimonial');
+    const prevBtn = document.querySelector('.prev-testimonial');
+    const nextBtn = document.querySelector('.next-testimonial');
     
     function showTestimonial(index) {
         testimonials.forEach((testimonial, i) => {
             if (i === index) {
-                testimonial.style.display = 'block';
+                testimonial.classList.add('active');
             } else {
-                testimonial.style.display = 'none';
+                testimonial.classList.remove('active');
             }
         });
     }
-
+  
     function nextTestimonial() {
         currentTestimonial = (currentTestimonial + 1) % testimonials.length;
         showTestimonial(currentTestimonial);
     }
-
+  
+    function prevTestimonial() {
+        currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+        showTestimonial(currentTestimonial);
+    }
+  
+    prevBtn.addEventListener('click', prevTestimonial);
+    nextBtn.addEventListener('click', nextTestimonial);
+  
     setInterval(nextTestimonial, 5000);
     showTestimonial(currentTestimonial);
-});
+  
+    // Scroll Animations
+    const scrollElements = document.querySelectorAll('.scroll-animation');
+  
+    const elementInView = (el, percentageScroll = 100) => {
+        const elementTop = el.getBoundingClientRect().top;
+        return (
+            elementTop <= 
+            ((window.innerHeight || document.documentElement.clientHeight) * (percentageScroll/100))
+        );
+    };
+  
+    const displayScrollElement = (element) => {
+        element.classList.add('scrolled');
+    };
+  
+    const hideScrollElement = (element) => {
+        element.classList.remove('scrolled');
+    };
+  
+    const handleScrollAnimation = () => {
+        scrollElements.forEach((el) => {
+            if (elementInView(el, 100)) {
+                displayScrollElement(el);
+            } else {
+                hideScrollElement(el);
+            }
+        })
+    }
+  
+    window.addEventListener('scroll', () => {
+        handleScrollAnimation();
+    });
+  
+    // Initialize
+    handleScrollAnimation();
+  });
