@@ -73,39 +73,45 @@ document.addEventListener('DOMContentLoaded', () => {
         body.classList.add('dark-theme');
     }
   
-    // Testimonial Slider
-    let currentTestimonial = 0;
-    const testimonials = document.querySelectorAll('.testimonial');
-    const prevBtn = document.querySelector('.prev-testimonial');
-    const nextBtn = document.querySelector('.next-testimonial');
-    
-    function showTestimonial(index) {
-        testimonials.forEach((testimonial, i) => {
+    document.addEventListener("DOMContentLoaded", function () {
+        // Testimonial Slider
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll(".testimonial");
+        const prevBtn = document.querySelector(".prev-testimonial");
+        const nextBtn = document.querySelector(".next-testimonial");
+      
+        function showTestimonial(index) {
+          testimonials.forEach((testimonial, i) => {
             if (i === index) {
-                testimonial.classList.add('active');
+              testimonial.classList.add("active");
             } else {
-                testimonial.classList.remove('active');
+              testimonial.classList.remove("active");
             }
-        });
-    }
-  
-    function nextTestimonial() {
-        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+          });
+        }
+      
+        function nextTestimonial() {
+          currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+          showTestimonial(currentTestimonial);
+        }
+      
+        function prevTestimonial() {
+          currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+          showTestimonial(currentTestimonial);
+        }
+      
+        if (prevBtn && nextBtn) {
+          prevBtn.addEventListener("click", prevTestimonial);
+          nextBtn.addEventListener("click", nextTestimonial);
+        }
+      
+        // Auto-slide testimonials every 5 seconds
+        setInterval(nextTestimonial, 5000);
+      
+        // Show the first testimonial initially
         showTestimonial(currentTestimonial);
-    }
-  
-    function prevTestimonial() {
-        currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
-        showTestimonial(currentTestimonial);
-    }
-  
-    prevBtn.addEventListener('click', prevTestimonial);
-    nextBtn.addEventListener('click', nextTestimonial);
-  
-    setInterval(nextTestimonial, 5000);
-    showTestimonial(currentTestimonial);
-  
-    // Scroll Animations
+      });
+      // Scroll Animations
     const scrollElements = document.querySelectorAll('.scroll-animation');
   
     const elementInView = (el, percentageScroll = 100) => {
