@@ -458,123 +458,128 @@ nav {
   font-size: 0.9rem;
 }
 
-/* About Section */
-#about {
-  padding: 5rem 2rem;
-  background: var(--footer-bg); /* Dark background */
-  color: white;
-}
+  /* About Section */
+  #about {
+    padding: 5rem 2rem;
+    background: var(--footer-bg); /* Dark background */
+    color: white;
+  }
 
-.about-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 3rem;
-  flex-wrap: wrap;
-}
-
-.about-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* Align items vertically */
-}
-
-.about-content {
-  flex: 1;
-  margin-right: 2rem;
-}
-
-#about h2 {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
-  font-weight: 700;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.about-intro {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 2rem;
-}
-
-.about-highlights {
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-}
-
-.highlight {
-  text-align: center;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1.5rem;
-  border-radius: 10px;
-  flex: 1;
-  max-width: 30%; /* Ensure consistent card size */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.highlight:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-.highlight i {
-  font-size: 2.5rem;
-  color: var(--accent-color);
-  margin-bottom: 0.5rem;
-}
-
-.highlight h4 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: var(--primary-color);
-}
-
-.highlight p {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.about-logo {
-  flex-shrink: 0; /* Ensure logo does not shrink */
-  max-width: 15%; /* Adjust size as needed */
-  margin-left: auto; /* Push logo to the extreme right */
-}
-
-.about-image img {
-  width: 100%;
-  max-width: 400px;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
-}
-
-.about-image img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-}
-
-@media (max-width: 1024px) {
-  .about-highlights {
-    flex-direction: column;
+  .about-container {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .about-section {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Align items vertically */
+    height: 80vh;
+  }
+
+  .about-content {
+    flex: 1;
+    margin-right: 2rem;
+  }
+
+  #about h2 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .about-intro {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+  }
+
+  .about-highlights {
+    display: flex;
+    justify-content: space-between;
+    text-align: start;
+    gap: 2rem;
   }
 
   .highlight {
-    max-width: 80%;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 10px;
+    flex: 1;
+    max-width: 30%; /* Ensure consistent card size */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-}
+  .highlight:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  .highlight i {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+  }
 
-@media (max-width: 768px) {
-  .about-container {
-    flex-direction: column;
-    align-items: center;
+  .highlight h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+  }
+
+  .highlight p {
+    text-align: center;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .about-logo {
+    flex-shrink: 0; /* Ensure logo does not shrink */
+    max-width: 15%; /* Adjust size as needed */
+    margin-left: auto; /* Push logo to the extreme right */
   }
 
   .about-image img {
-    margin-top: 2rem;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
   }
-}
+
+  .about-image img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (max-width: 1024px) {
+    .about-highlights {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .highlight {
+      max-width: 80%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-container {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .about-image img {
+      margin-top: 2rem;
+    }
+  }
 
 
 /* Gallery Section */
