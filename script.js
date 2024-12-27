@@ -72,6 +72,48 @@ document.addEventListener('DOMContentLoaded', () => {
     if (savedTheme === 'dark') {
         body.classList.add('dark-theme');
     }
+
+   
+
+document.addEventListener("DOMContentLoaded", () => {
+    const faqItems = document.querySelectorAll(".faq-item");
+  
+    faqItems.forEach((item) => {
+      const question = item.querySelector(".faq-question");
+      const answer = item.querySelector(".faq-answer");
+      const icon = question.querySelector("i");
+  
+      // Set initial height of all answers to 0
+      answer.style.height = "0";
+  
+      question.addEventListener("click", () => {
+        const isActive = answer.classList.contains("active");
+  
+        // Close all other FAQ items
+        document.querySelectorAll(".faq-answer.active").forEach((openAnswer) => {
+          openAnswer.classList.remove("active");
+          openAnswer.style.height = "0";
+  
+          const openIcon = openAnswer.closest(".faq-item").querySelector("i");
+          openIcon.style.transform = "rotate(0deg)";
+        });
+  
+        // Toggle the current FAQ item
+        if (!isActive) {
+          answer.classList.add("active");
+          answer.style.height = `${answer.scrollHeight}px`;
+          icon.style.transform = "rotate(180deg)";
+        } else {
+          answer.classList.remove("active");
+          answer.style.height = "0";
+          icon.style.transform = "rotate(0deg)";
+        }
+      });
+    });
+  });
+  
+  
+
   
     document.addEventListener("DOMContentLoaded", function () {
         // Testimonial Slider
