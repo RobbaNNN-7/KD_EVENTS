@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="notification.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <header>
@@ -442,59 +444,60 @@
         </section> -->
 
         <!-- Contact Section (Enhanced) -->
-        <section id="contact">
-            <h2>Get in Touch</h2>
-            <div class="contact-wrapper">
-                <div class="contact-info">
-                    <div class="contact-card">
-                        <i class="fas fa-phone"></i>
-                        <h3>Call Us</h3>
-                        <p>Main Office: +92 3265445388</p>
-                        <p>Events Team: 0341-2888684</p>
-                    </div>
-                    <div class="contact-card">
-                        <i class="fas fa-envelope"></i>
-                        <h3>Email Us</h3>
-                        <p>info@eventsbykd.com</p>
-                        <p>hdsuppliess@gmail.com</p>
-                    </div>
-                    <div class="contact-card">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Visit Us</h3>
-                        <p>E-11 Islamabad, Pakistan</p>
-                    </div>
-                </div>
-                <form id="contact-form" class="contact-form">
-                    <div class="form-group">
-                        <input type="text" name="name" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" name="phone" placeholder="Phone Number" required>
-                    </div>
-                    <div class="form-group">
-                        <select name="eventType" required>
-                            <option value="">Select Event Type</option>
-                            <option value="wedding">Wedding</option>
-                            <option value="corporate">Corporate Event</option>
-                            <option value="concert">Concert</option>
-                            <option value="qawalli">Qawalli Night</option>
-                            <option value="conference">Conference</option>
-                            <option value="birthday">Birthday Party</option>
-                            <option value="cultural">Cultural Event</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="message" placeholder="Tell us about your event" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
+<section id="contact">
+    <h2>Get in Touch</h2>
+    <div class="contact-wrapper">
+        <div class="contact-info">
+            <div class="contact-card">
+                <i class="fas fa-phone"></i>
+                <h3>Call Us</h3>
+                <p>Main Office: +92 3265445388</p>
+                <p>Events Team: 0341-2888684</p>
             </div>
-        </section>
-    </main>
+            <div class="contact-card">
+                <i class="fas fa-envelope"></i>
+                <h3>Email Us</h3>
+                <p>info@eventsbykd.com</p>
+                <p>hdsuppliess@gmail.com</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Visit Us</h3>
+                <p>E-11 Islamabad, Pakistan</p>
+            </div>
+        </div>
+        <form id="contact-form" class="contact-form">
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" name="phone" placeholder="Phone Number" required>
+            </div>
+            <div class="form-group">
+                <select name="eventType" required>
+                    <option value="">Select Event Type</option>
+                    <option value="wedding">Wedding</option>
+                    <option value="corporate">Corporate Event</option>
+                    <option value="concert">Concert</option>
+                    <option value="qawalli">Qawalli Night</option>
+                    <option value="conference">Conference</option>
+                    <option value="birthday">Birthday Party</option>
+                    <option value="cultural">Cultural Event</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <textarea name="message" placeholder="Tell us about your event" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+        <div id="notification-container" class="notification-container"></div>
+    </div>
+</section>
+    
 
 
 
@@ -596,5 +599,7 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="notification.js"></script>
 </body>
 </html>

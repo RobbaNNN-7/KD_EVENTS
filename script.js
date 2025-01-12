@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     });
-
+    
     // 5. Testimonial Slider
     let currentTestimonial = 0;
     const testimonials = document.querySelectorAll(".testimonial");
