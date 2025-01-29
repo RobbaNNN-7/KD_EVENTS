@@ -43,6 +43,12 @@
     <main>
         <!-- Hero Section -->
         <section id="hero">
+            <div class="video-background">
+                <video autoplay muted loop playsinline>
+                   
+                    <source src="hd-reel.mp4" type="video/mp4">
+                </video>
+            </div>
             <div class="gradient-bg"></div>
             <div class="hero-content">
                 <div class="hero-icon">
@@ -362,45 +368,54 @@
             </div>
         </section>
 
-        <!-- Gallery Section -->
-        <section id="gallery">
-            <h2>Event Gallery</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="dest_wedding.jpg" alt="Destination Wedding">
-                    <div class="overlay">
-                        <p>Destination Wedding</p>
+        <section class="gallery-section" id="gallery">
+            <div class="gallery-container">
+                <div class="gallery-header">
+                    <h2>Our Gallery</h2>
+                    <p>Explore our creative works and inspiring moments</p>
+                </div>
+                
+                <div class="gallery-grid">
+                    <div class="gallery-item featured-video">
+                        <video poster="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/bb2.png" class="video-element">
+                            <source src="your-video-source.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="overlay">
+                            <div class="play-button">
+                                <span class="play-icon">▶</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <img src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/bb7.png" alt="Gallery Image">
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <img src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/bb3.png" alt="Gallery Image">
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <img src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/bb6.png" alt="Gallery Image">
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <img src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/bb4.png" alt="Gallery Image">
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <img src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/bb5.png" alt="Gallery Image">
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="concert.jpg" alt="Lively concert">
-                    <div class="overlay">
-                        <p>Lively Concert</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="corporate_event.jpg" alt="Corporate event">
-                    <div class="overlay">
-                        <p>Corporate Event</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="qawalli.jpg" alt="Qawalli night">
-                    <div class="overlay">
-                        <p>Qawalli Night</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="birthday.jpg" alt="Birthday celebration">
-                    <div class="overlay">
-                        <p>Birthday Celebration</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="outdoor_event.png" alt="Outdoor event">
-                    <div class="overlay">
-                        <p>Outdoor Event</p>
-                    </div>
+                
+                <div class="view-more-container">
+                    <a href="/gallery" class="view-more-btn">
+                        <span>Discover More</span>
+                        <svg class="arrow" viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </section>
