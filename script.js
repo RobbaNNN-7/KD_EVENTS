@@ -1,3 +1,19 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.querySelector('video');
+    
+    // Force video play
+    video.play().catch(function(error) {
+        console.log("Video play failed:", error);
+    });
+
+    // Additional check for iOS
+    video.addEventListener('loadedmetadata', function() {
+        video.play().catch(function(error) {
+            console.log("Video play failed on loadedmetadata:", error);
+        });
+    });
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     // 1. Parallax Effect for Hero Background
     const heroBackground = document.querySelector(".hero-background");
@@ -23,21 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // forced auto play
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const video = document.querySelector('video');
-        
-        // Force video play
-        video.play().catch(function(error) {
-            console.log("Video play failed:", error);
-        });
     
-        // Additional check for iOS
-        video.addEventListener('loadedmetadata', function() {
-            video.play().catch(function(error) {
-                console.log("Video play failed on loadedmetadata:", error);
-            });
-        });
-    });
 
     $(document).ready(function(){
         $("img").click(function(){
