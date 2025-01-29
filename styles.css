@@ -434,6 +434,19 @@ nav {
   left: 50%;
   transform: translate(-50%, -50%);
   object-fit: cover;
+  /* Add these properties */
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Add a specific mobile media query for video */
+@media (max-width: 768px) {
+  .video-background video {
+      height: 100%;
+      width: 100%;
+      object-position: center;
+  }
 }
 
 
