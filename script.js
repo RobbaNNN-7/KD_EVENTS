@@ -1,19 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const video = document.querySelector('video');
-    
-    // Force video play
-    video.play().catch(function(error) {
-        console.log("Video play failed:", error);
-    });
-
-    // Additional check for iOS
-    video.addEventListener('loadedmetadata', function() {
-        video.play().catch(function(error) {
-            console.log("Video play failed on loadedmetadata:", error);
-        });
-    });
-});
-
 document.addEventListener("DOMContentLoaded", () => {
     // 1. Parallax Effect for Hero Background
     const heroBackground = document.querySelector(".hero-background");
@@ -36,10 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
-
-    // forced auto play
-
-    
 
     $(document).ready(function(){
         $("img").click(function(){
@@ -176,4 +156,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("scroll", handleScrollAnimation);
     handleScrollAnimation(); // Initialize
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Gallery script loaded")
+  
+    // Add hover effect for gallery items
+    const galleryItems = document.querySelectorAll(".gallery-item")
+    galleryItems.forEach((item) => {
+      if (!item.classList.contains("video-item")) {
+        item.addEventListener("mouseenter", () => {
+          item.querySelector(".overlay").style.opacity = "1"
+        })
+        item.addEventListener("mouseleave", () => {
+          item.querySelector(".overlay").style.opacity = "0"
+        })
+      }
+    })
+  
+    // Add click event for explore button
+    const exploreBtn = document.querySelector(".explore-btn")
+    exploreBtn.addEventListener("click", () => {
+      console.log("Explore More clicked")
+      // Add your desired action here
+    })
+  })
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const viewMoreBtn = document.querySelector('.view-more-btn');
+    viewMoreBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('View More clicked');
+        // You can add any additional logic here before navigation
+        window.location.href = viewMoreBtn.href;
+    });
 });
