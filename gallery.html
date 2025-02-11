@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Modern Gallery</title>
     <link rel="stylesheet" href="gallery-page.css">
 </head>
@@ -42,9 +43,16 @@
                 <p class="hero-subtitle">A journey through moments</p>
             </div>
             <div class="hero-media">
-                <video autoplay muted loop class="hero-video">
-                    <source src="dest_wedding_video-11.mp4" type="video/mp4">
-                </video>
+                <video 
+                src="dest_wedding_video2.mp4" 
+                loop 
+                muted 
+                playsinline
+                webkit-playsinline
+                x5-playsinline
+                preload="metadata"
+                poster="dest_wedding-1.jpeg"
+            ></video>
             </div>
         </section>
 

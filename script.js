@@ -1,3 +1,49 @@
+function handleVideoPlayback() {
+    const videos = document.querySelectorAll('video');
+    
+    videos.forEach(video => {
+        // Force video load on mobile
+        video.load();
+        
+        // Handle playback
+        function playVideo() {
+            video.play().catch(function(error) {
+                console.log("Video play failed:", error);
+                // If autoplay fails, show first frame
+                video.currentTime = 0.1;
+            });
+        }
+
+        // Play video when in viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    playVideo();
+                } else {
+                    video.pause();
+                }
+            });
+        }, { threshold: 0.1 });
+
+        observer.observe(video);
+
+        // Handle touch events for mobile
+        video.addEventListener('touchstart', () => {
+            if (video.paused) {
+                playVideo();
+            } else {
+                video.pause();
+            }
+        });
+
+        // Ensure video plays after loading
+        video.addEventListener('loadedmetadata', playVideo);
+        video.addEventListener('canplay', playVideo);
+    });
+}
+
+// Call the function when DOM is loaded
+document.addEventListener('DOMContentLoaded', handleVideoPlayback);
 document.addEventListener("DOMContentLoaded", () => {
     // 1. Parallax Effect for Hero Background
     const heroBackground = document.querySelector(".hero-background");

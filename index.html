@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>HD EVENTS - Premier Event Management in Islamabad</title>
     <link rel="icon" href="hd.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -53,11 +54,14 @@
                     playsinline
                     defaultMuted
                     webkit-playsinline
-                    preload="auto"
+                    x5-playsinline
+                    preload="metadata"
                     oncanplay="this.play()"
                     onloadedmetadata="this.muted = true"
                 >
                     <source src="hd-reel.mp4" type="video/mp4">
+                    <!-- Add fallback image for mobile -->
+                    <img src="hd.png" alt="Video Fallback">
                 </video>
             </div>
             <div class="gradient-bg"></div>
