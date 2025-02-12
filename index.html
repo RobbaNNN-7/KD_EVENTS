@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="gallery.css">
     <link rel="stylesheet" href="notification.css">
+    <link rel="stylesheet" href="experience.css">
+    <link rel="stylesheet" href="about.css">
+    <link rel="stylesheet" href="testimonials.css">
     <link rel="stylesheet" href="services.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -29,124 +32,179 @@
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
                 <li><a href="#gallery">Gallery</a></li>
-                <!-- <li><a href="https://www.3deventdesigner.com/project/c86681d85fb48a0a88bff43ed2360006800749ca" target="_blank" rel="noopener noreferrer">Design Your Event</a></li> -->
                 <li><a href="#contact" class="contact-btn">Contact</a></li>
             </ul>
-            <div class="burger">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
+
+            <div class="mobile-nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
+
             <div class="theme-toggle">
-                <i class="fas fa-sun"></i>
-                <i class="fas fa-moon"></i>
+                
+               
             </div>
         </nav>
     </header>
 
     <main>
         <!-- Hero Section -->
-        <section id="hero">
-            <div class="video-background">
-                <div class="gradient-overlay"></div>
-                <video autoplay muted loop playsinline>
-                    <source src="dest_wedding_video-11.mp4" type="video/mp4">
-                </video>
-            </div>
-            <div class="hero-content">
-                <div class="hero-badge" data-aos="fade-down">
-                    <span class="badge-icon"><i class="fas fa-award"></i></span>
-                    <span class="badge-text">Premier Event Management</span>
-                </div>
-                
-                <h1 class="hero-title" data-aos="fade-up">
-                    <span class="title-accent">Elevating</span> Events with 
-                    <span class="gradient-text">HD Events</span>
-                </h1>
-                
-                <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">
-                    Where Vision Meets Excellence in Islamabad
-                </p>
+        <section class="hero-new">
+            <div class="hero-split">
+                <!-- Left Content -->
+                <div class="hero-content-left">
+                    <div class="hero-eyebrow" data-aos="fade-down">
+                        <span class="line"></span>
+                        <span class="text">HD Events Presents</span>
+                    </div>
+                    
+                    <div class="hero-main-text" data-aos="fade-right">
+                        <h1>Your Vision <br>
+                            <span class="accent-text">Our Expertise</span> Into 
+                            <span class="gradient-text">A Perfect Event</span>
+                        </h1>
+                    </div>
 
-                <div class="hero-features" data-aos="fade-up" data-aos-delay="200">
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-check-circle"></i>
+                    <div class="hero-stats" data-aos="fade-up">
+                        <div class="stat">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Events Completed</div>
                         </div>
-                        <div class="feature-text">
-                            <span class="feature-number">100+</span>
-                            <span class="feature-label">Successful Events</span>
-                        </div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="feature-text">
-                            <span class="feature-number">2000+</span>
-                            <span class="feature-label">Happy Guests</span>
+                        <div class="stat-divider"></div>
+                        <div class="stat">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Client Satisfaction</div>
                         </div>
                     </div>
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="feature-text">
-                            <span class="feature-number">5.0</span>
-                            <span class="feature-label">Client Rating</span>
-                        </div>
+
+                    <div class="hero-cta" data-aos="fade-up" data-aos-delay="200">
+                        <a href="#contact" class="cta-primary">
+                            <span>Start Your Journey</span>
+                            <div class="btn-glow"></div>
+                        </a>
+                        <a href="#portfolio" class="cta-secondary">
+                            Explore Work
+                        </a>
                     </div>
                 </div>
 
-                <div class="cta-group" data-aos="fade-up" data-aos-delay="300">
-                    <a href="#contact" class="cta-primary">
-                        <span>Book Your Event</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="#services" class="cta-secondary">
-                        <span>Explore Services</span>
-                        <i class="fas fa-th-large"></i>
-                    </a>
-                </div>
-
-                <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="400">
-                    <span class="scroll-text">Scroll to Explore</span>
-                    <div class="scroll-arrow">
-                        <i class="fas fa-chevron-down"></i>
+                <!-- Right Content -->
+                <div class="hero-content-right">
+                    <div class="video-stack">
+                        <div class="video-container main" data-aos="fade-left">
+                            <video autoplay loop muted playsinline>
+                                <source src="hd-reel.mp4" type="video/mp4">
+                            </video>
+                            <div class="video-overlay"></div>
+                        </div>
+                        <div class="video-container accent" data-aos="fade-up">
+                            <video autoplay loop muted playsinline>
+                                <source src="dest_wedding_video-11.mp4" type="video/mp4">
+                            </video>
+                            <div class="video-overlay"></div>
+                        </div>
+                    </div>
+                    <div class="floating-badge" data-aos="zoom-in">
+                        <div class="badge-content">
+                            <span class="badge-title">Premium</span>
+                            <span class="badge-text">Event Design</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="hero-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
-                <div class="shape shape-4"></div>
+            <div class="scroll-prompt" data-aos="fade-up" data-aos-delay="400">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+                <div class="prompt-text">Scroll to Discover</div>
             </div>
         </section>
 
-        <section id="why-us">
-            <h2>Why Choose Us?</h2>
-            <div class="value-props">
-                <div class="value-card">
-                    <i class="fas fa-user-tie"></i>
-                    <h3>Create Your Own Design</h3>
-                    <p>We Offer you To make your own Template of Design and when matched with our Expertise, It Thrives.</p>
+        <section id="why-us" class="choose-section">
+            <div class="choose-container">
+                <div class="choose-header" data-aos="fade-up">
+                    <span class="choose-badge">Why Choose Us</span>
+                    <h2 class="choose-title">Elevating Events to Art</h2>
+                    <p class="choose-subtitle">We combine creativity with precision to deliver extraordinary experiences</p>
                 </div>
-                <div class="value-card">
-                    <i class="fas fa-dollar-sign"></i>
-                    <h3>Competitive Pricing</h3>
-                    <p>Premium quality services at budget-friendly rates, with transparent pricing and no hidden costs.</p>
+
+                <div class="features-grid">
+                    <div class="feature-card" data-aos="fade-up">
+                        <div class="feature-icon">
+                            <div class="icon-circle">
+                                <i class="fas fa-wand-magic-sparkles"></i>
+                            </div>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Create Your Own Design</h3>
+                            <p>At HD Events, we believe in the power of creativity to transform ordinary spaces into extraordinary experiences. Our team of talented designers and event planners work closely with you to create a design that perfectly reflects your vision and style.</p>
+                        </div>
+                        <div class="hover-line"></div>
+                    </div>
+
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon">
+                            <div class="icon-circle">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Premium Quality</h3>
+                            <p>Uncompromising attention to detail and use of premium materials in every event.</p>
+                        </div>
+                        <div class="hover-line"></div>
+                    </div>
+
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon">
+                            <div class="icon-circle">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Timely Execution</h3>
+                            <p>Precise planning and flawless execution, ensuring every moment unfolds perfectly.</p>
+                        </div>
+                        <div class="hover-line"></div>
+                    </div>
+
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-icon">
+                            <div class="icon-circle">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Dedicated Support</h3>
+                            <p>Personal attention and professional guidance throughout your event journey.</p>
+                        </div>
+                        <div class="hover-line"></div>
+                    </div>
                 </div>
-                <div class="value-card">
-                    <i class="fas fa-clipboard-check"></i>
-                    <h3>End-to-End Management</h3>
-                    <p>Complete event management from planning to execution, with dedicated on-site support throughout your event.</p>
-                </div>
-                <div class="value-card">
-                    <i class="fas fa-users-cog"></i>
-                    <h3>Expert Team</h3>
-                    <p>Multi-disciplinary team bringing diverse perspectives and expertise to your events.</p>
+
+                <div class="experience-block" data-aos="fade-up">
+                    <div class="experience-content">
+                        <div class="experience-text">
+                            <h3>Experience the Difference</h3>
+                            <p>Join the growing family of satisfied clients who trust HD Events for their special moments.</p>
+                            <a href="#contact" class="experience-cta">
+                                <span>Start Planning</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div class="achievement-stats">
+                            <div class="achievement-item">
+                                <span class="achievement-value">5+</span>
+                                <span class="achievement-label">Years of Excellence</span>
+                            </div>
+                            <div class="achievement-item">
+                                <span class="achievement-value">100+</span>
+                                <span class="achievement-label">Happy Clients</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -154,82 +212,81 @@
         <section id="about" class="about-section">
             <div class="about-container">
                 <div class="about-header" data-aos="fade-up">
-                    <span class="section-badge">About Us</span>
-                    <h2 class="section-title">Crafting Unforgettable Moments</h2>
-                    <p class="section-subtitle">Where Innovation Meets Excellence in Event Management</p>
+                    <span class="about-badge">About Us</span>
+                    <h2 class="about-title">Crafting Unforgettable Moments</h2>
+                    <p class="about-subtitle">Where Innovation Meets Excellence in Event Management</p>
                 </div>
 
-                <div class="about-grid">
-                    <div class="about-image-container" data-aos="fade-right">
-                        <div class="about-image-main">
-                            <img src="hd.png" alt="HD Events Team" class="main-image">
-                            <div class="experience-badge">
-                                <span class="number">5+</span>
-                                <span class="text">Years of Excellence</span>
+                <div class="about-content-wrapper">
+                    <div class="about-image-grid" data-aos="fade-right">
+                        <div class="about-image main">
+                            <video autoplay loop muted playsinline>
+                                <source src="qawalli_video.mp4" type="video/mp4">
+                            </video>
+                            <div class="experience-tag">
+                                <span>5+</span>
+                                <p>Years of Excellence</p>
                             </div>
                         </div>
-                        <div class="about-image-small">
-                            <img src="hd.png" alt="Event Setup" class="small-image">
+                        <div class="about-image secondary">
+                            <!-- <img src="dest_wedding-1.jpeg" alt="Event Setup"> -->
                         </div>
-                        <div class="shape-decorator"></div>
                     </div>
 
                     <div class="about-content" data-aos="fade-left">
-                        <div class="vision-mission">
-                            <div class="content-box">
-                                <i class="fas fa-eye"></i>
+                        <div class="about-cards">
+                            <div class="about-card">
+                                <div class="card-icon">
+                                    <i class="fas fa-eye"></i>
+                                </div>
                                 <h3>Our Vision</h3>
-                                <p>To revolutionize event experiences through innovation and creativity, setting new standards in the industry.</p>
+                                <p>To revolutionize event experiences through innovation and creativity.</p>
                             </div>
-                            <div class="content-box">
-                                <i class="fas fa-bullseye"></i>
+                            <div class="about-card">
+                                <div class="card-icon">
+                                    <i class="fas fa-bullseye"></i>
+                                </div>
                                 <h3>Our Mission</h3>
-                                <p>Delivering exceptional events that exceed expectations and create lasting memories for our clients.</p>
+                                <p>Delivering exceptional events that exceed expectations and create lasting memories.</p>
                             </div>
                         </div>
 
-                        <div class="key-features">
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-paint-brush"></i>
-                                </div>
-                                <div class="feature-content">
+                        <div class="about-features">
+                            <div class="feature">
+                                <i class="fas fa-paint-brush"></i>
+                                <div>
                                     <h4>Creative Excellence</h4>
                                     <p>Innovative designs and unique concepts</p>
                                 </div>
                             </div>
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <div class="feature-content">
+                            <div class="feature">
+                                <i class="fas fa-users"></i>
+                                <div>
                                     <h4>Expert Team</h4>
                                     <p>Dedicated professionals at your service</p>
                                 </div>
                             </div>
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-cog"></i>
-                                </div>
-                                <div class="feature-content">
+                            <div class="feature">
+                                <i class="fas fa-cog"></i>
+                                <div>
                                     <h4>Custom Solutions</h4>
                                     <p>Tailored to your unique requirements</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="stats-container">
-                            <div class="stat-item">
+                        <div class="about-stats">
+                            <div class="stat">
                                 <span class="stat-number">100+</span>
-                                <span class="stat-label">Events Completed</span>
+                                <span class="stat-label">Events</span>
                             </div>
-                            <div class="stat-item">
+                            <div class="stat">
                                 <span class="stat-number">50+</span>
-                                <span class="stat-label">Happy Clients</span>
+                                <span class="stat-label">Clients</span>
                             </div>
-                            <div class="stat-item">
+                            <div class="stat">
                                 <span class="stat-number">15+</span>
-                                <span class="stat-label">Team Members</span>
+                                <span class="stat-label">Team</span>
                             </div>
                         </div>
 
@@ -381,50 +438,96 @@
           
           
 
-        <!-- Experience Section (New) -->
-        <section id="experience">
-            <h2>Our Experience</h2>
-            <div class="experience-stats">
-                <div class="stat-card">
-                    <i class="fas fa-calendar-check"></i>
-                    <h3>100+</h3>
-                    <p>Events Managed</p>
+        <section id="experience" class="exp-section">
+            <div class="exp-wrapper">
+                <div class="exp-header">
+                    <span class="exp-label">Our Journey</span>
+                    <h2>Crafting Experiences Since 2019</h2>
+                    <p>From intimate gatherings to grand celebrations, we've mastered the art of creating unforgettable moments</p>
                 </div>
-                <div class="stat-card">
-                    <i class="fas fa-users"></i>
-                    <h3>1500+</h3>
-                    <p>Maximum Guests Handled</p>
+        
+                <div class="exp-highlights">
+                    <div class="highlight-card">
+                        <div class="highlight-content">
+                            <span class="highlight-number">100+</span>
+                            <h3>Events Executed</h3>
+                            <p>Every event, a masterpiece</p>
+                        </div>
+                        <div class="highlight-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+        
+                    <div class="highlight-card">
+                        <div class="highlight-content">
+                            <span class="highlight-number">50+</span>
+                            <h3>Corporate Clients</h3>
+                            <p>Trust built over years</p>
+                        </div>
+                        <div class="highlight-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                    </div>
+        
+                    <div class="highlight-card">
+                        <div class="highlight-content">
+                            <span class="highlight-number">15+</span>
+                            <h3>Team Members</h3>
+                            <p>Dedicated professionals</p>
+                        </div>
+                        <div class="highlight-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <i class="fas fa-building"></i>
-                    <h3>20+</h3>
-                    <p>Corporate Clients</p>
+        
+                <div class="exp-categories">
+                    <div class="category">
+                        <div class="category-header">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h3>Academic Events</h3>
+                        </div>
+                        <div class="category-list">
+                            <span>Literary Festivals</span>
+                            <span>Convocations</span>
+                            <span>Cultural Nights</span>
+                        </div>
+                    </div>
+        
+                    <div class="category">
+                        <div class="category-header">
+                            <i class="fas fa-briefcase"></i>
+                            <h3>Corporate Events</h3>
+                        </div>
+                        <div class="category-list">
+                            <span>Conferences</span>
+                            <span>Product Launches</span>
+                            <span>Team Building</span>
+                        </div>
+                    </div>
+        
+                    <div class="category">
+                        <div class="category-header">
+                            <i class="fas fa-music"></i>
+                            <h3>Entertainment</h3>
+                        </div>
+                        <div class="category-list">
+                            <span>Music Festivals</span>
+                            <span>Award Shows</span>
+                            <span>Cultural Events</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="experience-highlights">
-                <div class="highlight-card">
-                    <h4><i class="fas fa-graduation-cap"></i> University Events</h4>
-                    <ul>
-                        <li>National Literary Festival 5.0</li>
-                        <li>Welcome & Farewell Ceremonies</li>
-                        <li>National Music Festival 2.0</li>
-                    </ul>
-                </div>
-                <div class="highlight-card">
-                    <h4><i class="fas fa-music"></i> Entertainment Events</h4>
-                    <ul>
-                        <li>Concerts</li>
-                        <li>Qawwali Nights</li>
-                        <li>Cultural Performances</li>
-                    </ul>
-                </div>
-                <div class="highlight-card">
-                    <h4><i class="fas fa-briefcase"></i> Corporate Events</h4>
-                    <ul>
-                        <li>Business Seminars</li>
-                        <li>Conferences</li>
-                        <li>Networking Sessions</li>
-                    </ul>
+        
+                <div class="exp-cta">
+                    <div class="cta-content">
+                        <h3>Ready to Create Something Special?</h3>
+                        <p>Let's bring your vision to life</p>
+                    </div>
+                    <a href="#contact" class="cta-button">
+                        Start Your Journey
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </section>
@@ -511,34 +614,52 @@
     </section>
 
         <!-- Testimonials Section -->
-        <section id="testimonials">
+        <section id="testimonials" class="testimonials-section">
+            <div class="testimonials-wrapper"style = "text-align:center;font-size: 2rem;">
+                <div class="testimonials-intro">
+                    <span class="testimonial-badge">Client Stories</span>
+                    <h2>What Our Clients Say</h2>
+                   
+                </div>
 
+                <div class="testimonials-slider">
+                    <div class="testimonial-card active">
+                        <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                        <p class="testimonial-text">"HD Events transformed our corporate gathering into an unforgettable experience. Their attention to detail and innovative approach exceeded all expectations."</p>
+                        <div class="testimonial-author">
+                            <h4>Sarah Johnson</h4>
+                            <span>Corporate Event Manager</span>
+                        </div>
+                    </div>
 
-            <head>
-                <!-- Font Awesome for Icons -->
-                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-            </head>
-            <h2>What Our Clients Say</h2>
-            <div class="testimonial-slider">
-                <div class="testimonial active">
-                    <p>"EVENTS BY KD turned our wedding into a fairytale. Their attention to detail and creativity was beyond our expectations!"</p>
-                    <h4>Sarah and Ahmed</h4>
-                    <span>Wedding Clients</span>
+                    <div class="testimonial-card">
+                        <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                        <p class="testimonial-text">"The team's creativity and professionalism made our product launch a remarkable success. They truly understand how to create impact."</p>
+                        <div class="testimonial-author">
+                            <h4>Michael Chen</h4>
+                            <span>Marketing Director</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                        <p class="testimonial-text">"From concept to execution, their dedication to excellence was evident. They delivered beyond our expectations."</p>
+                        <div class="testimonial-author">
+                            <h4>Emma Thompson</h4>
+                            <span>Event Coordinator</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="testimonial">
-                    <p>"The corporate event organized by EVENTS BY KD was a huge success. Professional, punctual, and perfect execution!"</p>
-                    <h4>Malik Enterprises</h4>
-                    <span>Corporate Client</span>
+
+                <div class="testimonial-controls">
+                    <button class="prev-testimonial">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <div class="testimonial-dots"></div>
+                    <button class="next-testimonial">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
                 </div>
-                <div class="testimonial">
-                    <p>"The Qawalli night was magical. EVENTS BY KD created an atmosphere that truly elevated the experience."</p>
-                    <h4>Cultural Society of Islamabad</h4>
-                    <span>Event Organizer</span>
-                </div>
-            </div>
-            <div class="testimonial-nav">
-                <button class="prev-testimonial"><i class="fas fa-chevron-left"></i></button>
-                <button class="next-testimonial"><i class="fas fa-chevron-right"></i></button>
             </div>
         </section>
         <div class="cursor"></div>

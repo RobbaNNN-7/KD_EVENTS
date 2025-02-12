@@ -114,62 +114,90 @@ document.addEventListener("DOMContentLoaded", () => {
         const icon = question.querySelector("i");
 
         if (question && answer && icon) {
-            answer.style.height = "0"; // Set initial height to 0
             question.addEventListener("click", () => {
-                const isActive = answer.classList.contains("active");
-
-                // Close all other answers
-                document.querySelectorAll(".faq-answer.active").forEach((openAnswer) => {
-                    openAnswer.classList.remove("active");
-                    openAnswer.style.height = "0";
-                    const openIcon = openAnswer.closest(".faq-item").querySelector("i");
-                    if (openIcon) openIcon.style.transform = "rotate(0deg)";
-                });
-
                 // Toggle current answer
-                if (!isActive) {
-                    answer.classList.add("active");
-                    answer.style.height = `${answer.scrollHeight}px`;
-                    icon.style.transform = "rotate(180deg)";
+                answer.classList.toggle("active");
+                
+                // Toggle icon rotation
+                icon.style.transform = answer.classList.contains("active") 
+                    ? "rotate(180deg)" 
+                    : "rotate(0deg)";
+                
+                // Set height for animation
+                if (answer.classList.contains("active")) {
+                    answer.style.height = answer.scrollHeight + "px";
+                    answer.style.opacity = "1";
                 } else {
-                    answer.classList.remove("active");
                     answer.style.height = "0";
-                    icon.style.transform = "rotate(0deg)";
+                    answer.style.opacity = "0";
                 }
             });
         }
     });
-    
-    // 5. Testimonial Slider
-    let currentTestimonial = 0;
-    const testimonials = document.querySelectorAll(".testimonial");
-    const prevBtn = document.querySelector(".prev-testimonial");
-    const nextBtn = document.querySelector(".next-testimonial");
 
-    const showTestimonial = (index) => {
-        testimonials.forEach((testimonial, i) => {
-            testimonial.classList.toggle("active", i === index);
+    // Testimonials Slider
+document.addEventListener('DOMContentLoaded', function() {
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    const prevBtn = document.querySelector('.prev-testimonial');
+    const nextBtn = document.querySelector('.next-testimonial');
+    const dotsContainer = document.querySelector('.testimonial-dots');
+    let currentIndex = 0;
+
+    // Create dots
+    testimonialCards.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+
+    function updateSlider() {
+        testimonialCards.forEach((card, index) => {
+            if (index === currentIndex) {
+                card.style.visibility = 'visible';
+                card.style.opacity = '1';
+                card.style.transform = 'translateX(0)';
+            } else {
+                card.style.visibility = 'hidden';
+                card.style.opacity = '0';
+                card.style.transform = 'translateX(50px)';
+            }
+            dots[index].classList.toggle('active', index === currentIndex);
         });
-    };
-
-    if (prevBtn && nextBtn && testimonials.length > 0) {
-        prevBtn.addEventListener("click", () => {
-            currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
-            showTestimonial(currentTestimonial);
-        });
-
-        nextBtn.addEventListener("click", () => {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            showTestimonial(currentTestimonial);
-        });
-
-        setInterval(() => {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            showTestimonial(currentTestimonial);
-        }, 5000);
-
-        showTestimonial(currentTestimonial); // Show first testimonial
     }
+
+    function goToSlide(index) {
+        currentIndex = index;
+        updateSlider();
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % testimonialCards.length;
+        updateSlider();
+    }
+
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + testimonialCards.length) % testimonialCards.length;
+        updateSlider();
+    }
+
+    // Event listeners
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+    }
+
+    // Auto slide
+    setInterval(nextSlide, 5000);
+
+    // Initial state
+    updateSlider();
+});
+    
+
 
     // 6. Scroll Animations
     const scrollElements = document.querySelectorAll(".scroll-animation");
@@ -238,4 +266,129 @@ document.addEventListener("DOMContentLoaded", () => {
         // You can add any additional logic here before navigation
         window.location.href = viewMoreBtn.href;
     });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const navLinksItems = document.querySelectorAll('.nav-links a');
+
+    // Toggle mobile menu
+    mobileNavToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when a link is clicked
+    navLinksItems.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileNavToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !mobileNavToggle.contains(e.target)) {
+            mobileNavToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const counters = document.querySelectorAll('.exp-number');
+    
+    const observerOptions = {
+        threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = parseInt(counter.getAttribute('data-count'));
+                let count = 0;
+                const duration = 2000; // 2 seconds
+                const increment = target / (duration / 16); // 60fps
+
+                const updateCount = () => {
+                    count += increment;
+                    if (count < target) {
+                        counter.textContent = Math.ceil(count) + '+';
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.textContent = target + '+';
+                    }
+                };
+
+                updateCount();
+                observer.unobserve(counter);
+            }
+        });
+    }, observerOptions);
+
+    counters.forEach(counter => observer.observe(counter));
+});
+
+// Testimonials Slider
+document.addEventListener('DOMContentLoaded', function() {
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    const prevBtn = document.querySelector('.prev-testimonial');
+    const nextBtn = document.querySelector('.next-testimonial');
+    const dotsContainer = document.querySelector('.testimonial-dots');
+    let currentIndex = 0;
+
+    // Create dots
+    testimonialCards.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+
+    function updateSlider() {
+        testimonialCards.forEach((card, index) => {
+            if (index === currentIndex) {
+                card.style.visibility = 'visible';
+                card.style.opacity = '1';
+                card.style.transform = 'translateX(0)';
+            } else {
+                card.style.visibility = 'hidden';
+                card.style.opacity = '0';
+                card.style.transform = 'translateX(50px)';
+            }
+            dots[index].classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    function goToSlide(index) {
+        currentIndex = index;
+        updateSlider();
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % testimonialCards.length;
+        updateSlider();
+    }
+
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + testimonialCards.length) % testimonialCards.length;
+        updateSlider();
+    }
+
+    // Event listeners
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+    }
+
+    // Auto slide
+    setInterval(nextSlide, 5000);
+
+    // Initial state
+    updateSlider();
 });
