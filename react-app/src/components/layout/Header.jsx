@@ -42,12 +42,12 @@ const Header = () => {
                 </div>
 
                 <ul className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
-                    <li><a href="#services" onClick={(e) => scrollToSection(e, '#services')}>Services</a></li>
-                    <li><a href="#about" onClick={(e) => scrollToSection(e, '#about')}>About</a></li>
-                    <li><a href="#experience" onClick={(e) => scrollToSection(e, '#experience')}>Experience</a></li>
-                    <li><a href="#testimonials" onClick={(e) => scrollToSection(e, '#testimonials')}>Testimonials</a></li>
+                    <li><Link to="/#services" onClick={closeMobileMenu}>Services</Link></li>
+                    <li><Link to="/#about" onClick={closeMobileMenu}>About</Link></li>
+                    <li><Link to="/#experience" onClick={closeMobileMenu}>Experience</Link></li>
+                    <li><Link to="/#testimonials" onClick={closeMobileMenu}>Testimonials</Link></li>
                     <li><Link to="/gallery" onClick={closeMobileMenu}>Gallery</Link></li>
-                    <li><a href="#contact" onClick={(e) => scrollToSection(e, '#contact')} className="contact-btn">Contact</a></li>
+                    <li><Link to="/#contact" onClick={closeMobileMenu} className="contact-btn">Contact</Link></li>
                 </ul>
 
                 <div
