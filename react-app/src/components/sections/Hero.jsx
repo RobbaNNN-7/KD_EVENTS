@@ -55,7 +55,7 @@ const Hero = () => {
                             <span>Curate your Event</span>
                             <div className="btn-glow"></div>
                         </Link>
-                        <a href="#portfolio" className="cta-secondary">
+                        <a href="#services" className="cta-secondary">
                             Explore Work
                         </a>
                     </div>

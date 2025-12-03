@@ -12,7 +12,7 @@ const RecentProjects = () => {
             title: 'Tech Innovation Summit',
             description: 'A high-profile corporate seminar with industry leaders and networking sessions.',
             attendance: '500+',
-            image: '/assets/images/corporate_event.jpg'
+            image: 'assets/images/outdoor_event.png'
         },
         {
             title: 'National Music Festival 2.0',

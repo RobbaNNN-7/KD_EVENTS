@@ -37,7 +37,7 @@ const Header = () => {
         <header className={isScrolled ? 'scrolled' : ''}>
             <nav>
                 <div className="logo-container">
-                    <img src="/assets/images/hd.png" alt="Logo" className="logo-img" />
+                    {/* <img src="react-app/src/assets/images/hd.png" className="logo-img" /> */}
                     <div className="logo-text">HD Events</div>
                 </div>
 
