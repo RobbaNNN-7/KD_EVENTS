@@ -499,11 +499,16 @@
 
 /* Interactive Showcase */
 .corporate-page .interactive-showcase {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    margin: 100px 0;
+    display: flex;
+    justify-content: center;
     align-items: center;
+    margin: 100px 0;
+    width: 100%;
+}
+
+.corporate-page .showcase-text {
+    width: 100%;
+    max-width: 1200px;
 }
 
 .corporate-page .showcase-text h3 {
@@ -518,6 +523,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     padding: 2rem 0;
+    justify-items: center;
 }
 
 .corporate-page .step {

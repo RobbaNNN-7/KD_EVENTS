@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const navigate = useNavigate();
+    const [showBackButton, setShowBackButton] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -13,6 +15,12 @@ const Header = () => {
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        // Show back button on gallery and corporate pages
+        const pathname = window.location.pathname;
+        setShowBackButton(pathname === '/gallery' || pathname === '/corporate');
     }, []);
 
     const toggleMobileMenu = () => {
@@ -36,8 +44,17 @@ const Header = () => {
     return (
         <header className={isScrolled ? 'scrolled' : ''}>
             <nav>
+                {showBackButton && (
+                    <button
+                        className="header-back-button"
+                        onClick={() => navigate('/')}
+                        aria-label="Go back to home"
+                    >
+                        <i className="fas fa-arrow-left"></i>
+                        <span>Back</span>
+                    </button>
+                )}
                 <div className="logo-container">
-                    <img src="/assets/images/hd.png" alt="Logo" className="logo-img" />
                     <div className="logo-text">HD Events</div>
                 </div>
 

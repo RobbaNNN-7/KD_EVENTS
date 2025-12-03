@@ -45,8 +45,13 @@ const Tutorial = ({ onClose }) => {
         if (currentStep < steps.length - 1) {
             setCurrentStep(currentStep + 1);
         } else {
-            onClose();
+            finishTutorial();
         }
+    };
+
+    const finishTutorial = () => {
+        localStorage.setItem('eventCreatorTutorialCompleted', 'true');
+        onClose();
     };
 
     const prevStep = () => {

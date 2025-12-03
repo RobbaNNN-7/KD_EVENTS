@@ -1,9 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MainLayout from '../components/layout/MainLayout';
 import './GalleryPage.css';
 
 const GalleryPage = () => {
     const [filter, setFilter] = useState('all');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const galleryItems = [
         { id: 1, type: 'video', src: '/assets/videos/dest_wedding_video-1.mp4', title: 'Destination Wedding Highlights', category: 'wedding', size: 'vertical' },

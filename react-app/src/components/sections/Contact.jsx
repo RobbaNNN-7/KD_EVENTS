@@ -30,8 +30,6 @@ const Contact = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Initialize EmailJS if you have it configured
-        // Replace with your actual EmailJS service ID, template ID, and public key
         const serviceID = 'YOUR_SERVICE_ID';
         const templateID = 'YOUR_TEMPLATE_ID';
         const publicKey = 'YOUR_PUBLIC_KEY';

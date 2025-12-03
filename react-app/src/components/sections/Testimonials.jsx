@@ -74,9 +74,6 @@ const Testimonials = () => {
                 </div>
 
                 <div className="testimonial-controls">
-                    <button className="prev-testimonial" onClick={prevSlide}>
-                        <i className="fas fa-arrow-left"></i>
-                    </button>
                     <div className="testimonial-dots">
                         {testimonials.map((_, index) => (
                             <div
@@ -86,9 +83,6 @@ const Testimonials = () => {
                             ></div>
                         ))}
                     </div>
-                    <button className="next-testimonial" onClick={nextSlide}>
-                        <i className="fas fa-arrow-right"></i>
-                    </button>
                 </div>
             </div>
         </section>

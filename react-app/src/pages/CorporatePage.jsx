@@ -1,8 +1,15 @@
 import MainLayout from '../components/layout/MainLayout';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import './CorporatePage.css';
 
 const CorporatePage = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <MainLayout>
             <div className="corporate-page">

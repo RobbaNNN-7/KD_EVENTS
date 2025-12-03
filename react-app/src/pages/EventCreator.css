@@ -89,6 +89,10 @@
     background: #f44336 !important;
 }
 
+.btn-help:hover {
+    background: #FF9800 !important;
+}
+
 /* Main Layout */
 .creator-main {
     display: flex;
@@ -428,6 +432,10 @@
     cursor: move;
     transition: all 0.2s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .canvas-item:hover {

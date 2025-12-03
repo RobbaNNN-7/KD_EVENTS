@@ -77,12 +77,20 @@ const Services = () => {
                                     </svg>
                                 </Link>
                             ) : (
-                                <a href={service.link} className="service-btn">
-                                    <span>Explore</span>
+                                <button
+                                    className="service-btn disabled"
+                                    disabled
+                                    style={{
+                                        opacity: 0.5,
+                                        cursor: 'not-allowed',
+                                        pointerEvents: 'none'
+                                    }}
+                                >
+                                    <span>Coming Soon</span>
                                     <svg viewBox="0 0 24 24">
                                         <path d="M7 7l5 5-5 5m5-5h-12" />
                                     </svg>
-                                </a>
+                                </button>
                             )}
                         </div>
                     </div>

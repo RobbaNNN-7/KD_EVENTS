@@ -100,18 +100,41 @@ const EventCreator = () => {
         const startY = e.clientY;
         const startItemX = item.x;
         const startItemY = item.y;
+        let lastUpdateTime = Date.now();
+        let pendingUpdate = false;
 
         const handleMouseMove = (moveEvent) => {
+            const now = Date.now();
             const deltaX = (moveEvent.clientX - startX) / zoom;
             const deltaY = (moveEvent.clientY - startY) / zoom;
 
-            setCanvasItems(items =>
-                items.map(i =>
-                    i.id === item.id
-                        ? { ...i, x: startItemX + deltaX, y: startItemY + deltaY }
-                        : i
-                )
-            );
+            const newX = startItemX + deltaX;
+            const newY = startItemY + deltaY;
+
+            // Throttle updates to 60fps max
+            if (!pendingUpdate && now - lastUpdateTime > 16) {
+                lastUpdateTime = now;
+                setCanvasItems(items =>
+                    items.map(i =>
+                        i.id === item.id
+                            ? { ...i, x: newX, y: newY }
+                            : i
+                    )
+                );
+            } else if (!pendingUpdate) {
+                pendingUpdate = true;
+                requestAnimationFrame(() => {
+                    setCanvasItems(items =>
+                        items.map(i =>
+                            i.id === item.id
+                                ? { ...i, x: newX, y: newY }
+                                : i
+                        )
+                    );
+                    pendingUpdate = false;
+                    lastUpdateTime = Date.now();
+                });
+            }
         };
 
         const handleMouseUp = () => {
@@ -233,6 +256,14 @@ const EventCreator = () => {
                     <h1>Event Design Canvas</h1>
                 </div>
                 <div className="header-actions">
+                    <button 
+                        onClick={() => setShowTutorial(true)} 
+                        className="btn-help" 
+                        aria-label="Show tutorial"
+                        title="View tutorial"
+                    >
+                        <i className="fas fa-question-circle"></i>
+                    </button>
                     <button onClick={saveDesign} className="btn-save" aria-label="Save design">
                         <i className="fas fa-save"></i> Save
                     </button>
