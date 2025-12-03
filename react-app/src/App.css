@@ -1,0 +1,4 @@
+/* Minimal App styles - most styling is in component-specific files */
+* {
+  box-sizing: border-box;
+}
