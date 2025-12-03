@@ -1,105 +1,92 @@
+import { useState } from 'react';
 import MainLayout from '../components/layout/MainLayout';
 import './GalleryPage.css';
 
 const GalleryPage = () => {
+    const [filter, setFilter] = useState('all');
+
+    const galleryItems = [
+        { id: 1, type: 'video', src: '/assets/videos/dest_wedding_video-1.mp4', title: 'Destination Wedding Highlights', category: 'wedding', size: 'vertical' },
+        { id: 2, type: 'image', src: '/assets/images/qawalli.jpg', title: 'Qawalli Night', category: 'cultural', size: 'square' },
+        { id: 3, type: 'image', src: '/assets/images/bollywood.jpg', title: 'Bollywood Night', category: 'entertainment', size: 'horizontal' },
+        { id: 4, type: 'image', src: '/assets/images/birthday.jpg', title: 'Birthday Celebration', category: 'social', size: 'square' },
+        { id: 5, type: 'image', src: '/assets/images/concert.jpg', title: 'Live Concert', category: 'entertainment', size: 'vertical' },
+        { id: 6, type: 'image', src: '/assets/images/dest_wedding-1.jpeg', title: 'Wedding Setup', category: 'wedding', size: 'horizontal' },
+        { id: 7, type: 'image', src: '/assets/images/dest_wedding-3.jpeg', title: 'Floral Decor', category: 'wedding', size: 'square' },
+        { id: 8, type: 'video', src: '/assets/videos/dest_wedding_video2.mp4', title: 'Wedding Moments', category: 'wedding', size: 'vertical' },
+        { id: 9, type: 'image', src: '/assets/images/dest_wedding-5.jpg', title: 'Venue Lighting', category: 'wedding', size: 'horizontal' },
+        { id: 10, type: 'image', src: '/assets/images/dest_wedding-6.jpg', title: 'Grand Entrance', category: 'wedding', size: 'square' },
+        { id: 11, type: 'image', src: '/assets/images/dest_wedding-7.jpg', title: 'Reception Stage', category: 'wedding', size: 'horizontal' },
+        { id: 12, type: 'image', src: '/assets/images/concert-1.jpg', title: 'Music Festival', category: 'entertainment', size: 'vertical' },
+    ];
+
+    const filteredItems = filter === 'all'
+        ? galleryItems
+        : galleryItems.filter(item => item.category === filter);
+
     return (
         <MainLayout>
             <div className="gallery-page">
-                <div className="gallery-header">
-                    <h1>Our Portfolio</h1>
-                    <p>Explore our collection of memorable events</p>
-                </div>
-
-                <div className="gallery-grid">
-                    <div className="gallery-item">
-                        <img src="/assets/images/qawalli.jpg" alt="Qawalli Night" />
-                        <div className="overlay">
-                            <h3>Qawalli Night</h3>
-                        </div>
-                    </div>
-
-                    <div className="gallery-item">
-                        <img src="/assets/images/bollywood.jpg" alt="Bollywood Event" />
-                        <div className="overlay">
-                            <h3>Bollywood Night</h3>
-                        </div>
-                    </div>
-
-                    <div className="gallery-item">
-                        <img src="/assets/images/birthday.jpg" alt="Birthday Celebration" />
-                        <div className="overlay">
-                            <h3>Birthday Party</h3>
-                        </div>
-                    </div>
-
-                    <div className="gallery-item">
-                        <img src="/assets/images/concert.jpg" alt="Concert" />
-                        <div className="overlay">
-                            <h3>Live Concert</h3>
-                        </div>
-                    </div>
-
-                    <div className="gallery-item">
-                        <img src="/assets/images/concert-1.jpg" alt="Concert" />
-                        <div className="overlay">
-                            <h3>Music Festival</h3>
-                        </div>
-                    </div>
-
-                    <div className="gallery-item">
-                        <img src="/assets/images/dest_wedding-1.jpeg" alt="Destination Wedding" />
-                        <div className="overlay">
-                            <h3>Destination Wedding</h3>
-                        </div>
-                    </div>
-
-                    <div className="gallery-item">
-                        <img src="/assets/images/dest_wedding-3.jpeg" alt="Wedding Decor" />
-                        <div className="overlay">
-                            <h3>Wedding Decor</h3>
-                        </div>
-                    </div>
-
-                    <div className="gallery-item">
-                        <img src="/assets/images/dest_wedding-4.jpeg" alt="Wedding Setup" />
-                        <div className="overlay">
-                            <h3>Wedding Setup</h3>
-                        </div>
-                    </div>
-
-                    <div className="gallery-item">
-                        <img src="/assets/images/dest_wedding-5.jpg" alt="Wedding Venue" />
-                        <div className="overlay">
-                            <h3>Wedding Venue</h3>
-                        </div>
-                    </div>
-
-                    <div className="gallery-item">
-                        <img src="/assets/images/dest_wedding-6.jpg" alt="Wedding Celebration" />
-                        <div className="overlay">
-                            <h3>Wedding Celebration</h3>
-                        </div>
-                    </div>
-
-                    <div className="gallery-item">
-                        <img src="/assets/images/dest_wedding-7.jpg" alt="Wedding Reception" />
-                        <div className="overlay">
-                            <h3>Wedding Reception</h3>
-                        </div>
-                    </div>
-
-                    <div className="gallery-item video-item">
-                        <video controls>
+                {/* Hero Section */}
+                <section className="hero">
+                    <div className="hero-media">
+                        <video autoPlay muted loop playsInline className="hero-video">
                             <source src="/assets/videos/dest_wedding_video-1.mp4" type="video/mp4" />
                         </video>
                     </div>
-
-                    <div className="gallery-item video-item">
-                        <video controls>
-                            <source src="/assets/videos/dest_wedding_video2.mp4" type="video/mp4" />
-                        </video>
+                    <div className="hero-content">
+                        <h1 className="hero-title">Our Portfolio</h1>
+                        <p>Capturing moments that last a lifetime</p>
                     </div>
-                </div>
+                </section>
+
+                {/* Dynamic Gallery */}
+                <section className="dynamic-gallery">
+                    <div className="gallery-nav">
+                        <button
+                            className={`nav-btn ${filter === 'all' ? 'active' : ''}`}
+                            onClick={() => setFilter('all')}
+                        >
+                            All
+                        </button>
+                        <button
+                            className={`nav-btn ${filter === 'wedding' ? 'active' : ''}`}
+                            onClick={() => setFilter('wedding')}
+                        >
+                            Weddings
+                        </button>
+                        <button
+                            className={`nav-btn ${filter === 'entertainment' ? 'active' : ''}`}
+                            onClick={() => setFilter('entertainment')}
+                        >
+                            Entertainment
+                        </button>
+                        <button
+                            className={`nav-btn ${filter === 'social' ? 'active' : ''}`}
+                            onClick={() => setFilter('social')}
+                        >
+                            Social Events
+                        </button>
+                    </div>
+
+                    <div className="gallery-masonry">
+                        {filteredItems.map(item => (
+                            <div key={item.id} className={`masonry-item ${item.size}`}>
+                                {item.type === 'video' ? (
+                                    <video controls muted>
+                                        <source src={item.src} type="video/mp4" />
+                                    </video>
+                                ) : (
+                                    <img src={item.src} alt={item.title} />
+                                )}
+                                <div className="item-content">
+                                    <h3>{item.title}</h3>
+                                    <p>{item.category.charAt(0).toUpperCase() + item.category.slice(1)}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
             </div>
         </MainLayout>
     );

@@ -5,7 +5,7 @@ const Services = () => {
     const services = [
         {
             title: 'Decor and Ambience',
-            image: '/assets/images/corporate_event.jpg',
+            image: '/assets/images/event-1.jpeg',
             icon: 'fa-building',
             description: 'Transform your business gatherings into unforgettable experiences',
             features: ['Conferences & Seminars', 'Team Building Events', 'Product Launches'],
@@ -21,7 +21,7 @@ const Services = () => {
         },
         {
             title: 'Entertainment Solutions',
-            image: '/assets/images/dest_wedding-2.jpeg',
+            image: '/assets/images/concert.jpg',
             icon: 'fa-music',
             description: 'Bringing life to your events with premium entertainment',
             features: ['Live Music & DJs', 'Cultural Performances', 'Interactive Shows'],
@@ -29,7 +29,7 @@ const Services = () => {
         },
         {
             title: 'Catering Services',
-            image: '/assets/images/dest_wedding-2.jpeg',
+            image: '/assets/images/dest_wedding-3.jpeg',
             icon: 'fa-utensils',
             description: 'Exquisite culinary experiences for your events',
             features: ['Custom Menu Planning', 'International Cuisine', 'Dietary Accommodations'],
@@ -37,7 +37,7 @@ const Services = () => {
         },
         {
             title: 'Technical Production',
-            image: '/assets/images/dest_wedding-2.jpeg',
+            image: '/assets/images/SMD.jpg',
             icon: 'fa-video',
             description: 'State-of-the-art technical support for flawless events',
             features: ['Sound & Lighting', 'Video Production', 'Live Streaming'],

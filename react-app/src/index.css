@@ -5,6 +5,8 @@
 /* Import all styles from the original project */
 @import './styles/styles.css';
 @import './styles/gallery.css';
+@import './styles/gallery-page.css';
+@import './styles/corporate.css';
 @import './styles/notification.css';
 @import './styles/experience.css';
 @import './styles/about.css';
@@ -36,7 +38,6 @@ body {
   color: var(--text-color);
   background-color: var(--bg-color);
   transition: background-color var(--transition-speed) ease;
-  padding-top: var(--header-height);
 }
 
 a {

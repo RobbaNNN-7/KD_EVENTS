@@ -391,6 +391,7 @@ const EventCreator = () => {
                                         zIndex: item.zIndex,
                                     }}
                                     onMouseDown={(e) => handleItemMouseDown(e, item)}
+                                    onClick={(e) => e.stopPropagation()}
                                     role="button"
                                     tabIndex={0}
                                     aria-label={`${item.name} object`}

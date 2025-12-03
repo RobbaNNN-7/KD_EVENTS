@@ -52,7 +52,7 @@ const Hero = () => {
 
                     <div className="hero-cta" data-aos="fade-up" data-aos-delay="200">
                         <Link to="/event-creator" className="cta-primary">
-                            <span>Start Your Journey</span>
+                            <span>Curate your Event</span>
                             <div className="btn-glow"></div>
                         </Link>
                         <a href="#portfolio" className="cta-secondary">
