@@ -1,6 +1,6 @@
 # HD Events - React Application
 
-A modern, React-based event management website for HD Events, featuring professional event planning, decor, and management services in Islamabad.
+A modern, React-based event management website for HD Events, featuring professional event planning, decor, and management services in Islamabad
 
 ## Features
 
