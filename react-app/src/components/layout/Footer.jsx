@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => {
@@ -18,12 +19,19 @@ const Footer = () => {
                     <h5>Quick Links</h5>
                     <ul>
                         <li><a href="#services">Services</a></li>
-                        <li><a href="#team">Our Team</a></li>
-                        <li><a href="#experience">Experience</a></li>
-                        <li><a href="#equipment">Equipment</a></li>
-                        <li><a href="#gallery">Gallery</a></li>
-                        <li><a href="#booking">Book an Event</a></li>
-                        <li><a href="#faq">FAQs</a></li>
+                        <li><Link to="/gallery">Gallery</Link></li>
+                        <li><Link to="/corporate">Corporate</Link></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div className="footer-section">
+                    <h5>Explore</h5>
+                    <ul>
+                        <li><Link to="/event-creator">Event Creator</Link></li>
+                        <li><Link to="/venues">Venue Scout</Link></li>
+                        <li><Link to="/packages">Packages & Pricing</Link></li>
+                        <li><Link to="/live">Live Experience</Link></li>
                     </ul>
                 </div>
                 <div className="footer-section">
@@ -34,7 +42,6 @@ const Footer = () => {
                         <li>Catering Services</li>
                         <li>Venue Management</li>
                         <li>Photography</li>
-                        <li>Entertainment</li>
                     </ul>
                 </div>
                 <div className="footer-section">

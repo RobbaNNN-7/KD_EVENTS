@@ -1,0 +1,118 @@
+/* Live Experience Page */
+.live-experience {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    overflow: hidden;
+}
+
+.background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    object-fit: cover;
+}
+
+.experience-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    backdrop-filter: blur(2px);
+}
+
+.vibe-content {
+    text-align: center;
+    color: white;
+    padding: 20px;
+    animation: fadeIn 1s ease-out;
+}
+
+.vibe-content h1 {
+    font-size: 5rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 12px;
+    font-weight: 800;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to right, #fff, #a1a1a1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.vibe-content p {
+    font-size: 1.5rem;
+    margin: 20px 0 40px;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+.controls {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.control-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.control-btn i {
+    font-size: 1.2rem;
+}
+
+.headphones-advisory {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0.7;
+    font-size: 0.9rem;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .vibe-content h1 {
+        font-size: 3rem;
+        letter-spacing: 6px;
+    }
+
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .control-btn {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+    }
+}

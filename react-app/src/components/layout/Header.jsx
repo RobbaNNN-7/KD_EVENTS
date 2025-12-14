@@ -43,9 +43,9 @@ const Header = () => {
 
                 <ul className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
                     <li><Link to="/#services" onClick={closeMobileMenu}>Services</Link></li>
-                    <li><Link to="/#about" onClick={closeMobileMenu}>About</Link></li>
-                    <li><Link to="/#experience" onClick={closeMobileMenu}>Experience</Link></li>
-                    <li><Link to="/#testimonials" onClick={closeMobileMenu}>Testimonials</Link></li>
+                    <li><Link to="/venues" onClick={closeMobileMenu}>Venues</Link></li>
+                    <li><Link to="/packages" onClick={closeMobileMenu}>Packages</Link></li>
+                    <li><Link to="/live" onClick={closeMobileMenu}>Live</Link></li>
                     <li><Link to="/gallery" onClick={closeMobileMenu}>Gallery</Link></li>
                     <li><Link to="/#contact" onClick={closeMobileMenu} className="contact-btn">Contact</Link></li>
                 </ul>
