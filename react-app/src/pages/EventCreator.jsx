@@ -678,6 +678,11 @@ const EventCreator = () => {
                     items={canvasItems}
                     ambience={ambience}
                     onClose={() => setShow3DView(false)}
+                    onUpdateItem={(id, updates) => {
+                        setCanvasItems(items => items.map(i => i.id === id ? { ...i, ...updates } : i));
+                    }}
+                    onSelectItem={setSelectedItem}
+                    selectedId={selectedItem}
                 />
             )}
         </div>
