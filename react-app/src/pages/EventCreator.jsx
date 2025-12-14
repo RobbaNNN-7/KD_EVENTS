@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Tutorial from '../components/shared/Tutorial';
+import Header from '../components/layout/Header';
 import './EventCreator.css';
 
 const EventCreator = () => {
@@ -16,6 +17,8 @@ const EventCreator = () => {
     const [savedDesigns, setSavedDesigns] = useState([]);
     const [showTutorial, setShowTutorial] = useState(false);
     const [ambience, setAmbience] = useState('day'); // 'day' | 'night'
+    const [is3D, setIs3D] = useState(false);
+    const [showConfetti, setShowConfetti] = useState(false);
 
     // Check if user has seen tutorial
     useEffect(() => {
@@ -151,6 +154,10 @@ const EventCreator = () => {
         setCanvasItems([...canvasItems, newItem]);
         setSelectedItem(newItem.id);
         setDraggedObject(null);
+
+        // Trigger confetti
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 2000);
     };
 
     // Handle canvas item drag
@@ -304,8 +311,9 @@ const EventCreator = () => {
 
     return (
         <div className="event-creator">
-            {/* Header */}
-            <header className="creator-header">
+            <Header />
+            {/* Toolbar / Secondary Header */}
+            <div className="creator-header">
                 <div className="header-left">
                     <button
                         className="back-button"
@@ -328,7 +336,7 @@ const EventCreator = () => {
                         <i className="fas fa-trash"></i> Clear
                     </button>
                 </div>
-            </header>
+            </div>
 
             <div className="creator-main">
                 {/* Left Sidebar - Object Library */}
@@ -466,6 +474,14 @@ const EventCreator = () => {
                                 <i className={`fas ${ambience === 'day' ? 'fa-sun' : 'fa-moon'}`}></i>
                             </button>
                             <button
+                                onClick={() => setIs3D(!is3D)}
+                                className={`tool-btn ${is3D ? 'active' : ''}`}
+                                aria-label="Toggle 3D Holographic View"
+                                title="Holographic View"
+                            >
+                                <i className="fas fa-cube"></i>
+                            </button>
+                            <button
                                 onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
                                 className="tool-btn"
                                 aria-label="Zoom out"
@@ -492,8 +508,8 @@ const EventCreator = () => {
 
                     <div
                         ref={canvasRef}
-                        className={`canvas ${gridVisible ? 'grid-visible' : ''} ${ambience}`}
-                        style={{ transform: `scale(${zoom})` }}
+                        className={`canvas ${gridVisible ? 'grid-visible' : ''} ${ambience} ${is3D ? 'iso-mode' : ''}`}
+                        style={{ transform: is3D ? `scale(${zoom}) rotateX(60deg) rotateZ(-45deg)` : `scale(${zoom})` }}
                         onDrop={handleCanvasDrop}
                         onDragOver={(e) => e.preventDefault()}
                         onClick={() => setSelectedItem(null)}

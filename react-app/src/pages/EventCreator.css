@@ -6,18 +6,22 @@
     background: #f5f7fa;
     font-family: 'Poppins', sans-serif;
     overflow: hidden;
+    padding-top: 80px;
+    /* Space for global header */
 }
 
-/* Header */
+/* Secondary Header (Toolbar) */
 .creator-header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 1rem 2rem;
+    padding: 0.8rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    z-index: 100;
+    z-index: 90;
+    /* Lower z-index than global header usually */
+    position: relative;
 }
 
 .header-left {
@@ -725,7 +729,7 @@ button:focus {
 }
 
 .canvas.night.grid-visible {
-    background-image: 
+    background-image:
         linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
 }
