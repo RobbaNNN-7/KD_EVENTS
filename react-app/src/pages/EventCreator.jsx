@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Tutorial from '../components/shared/Tutorial';
 import Header from '../components/layout/Header';
+import Event3DView from '../components/shared/Event3DView';
 import './EventCreator.css';
 
 const EventCreator = () => {
@@ -17,7 +18,7 @@ const EventCreator = () => {
     const [savedDesigns, setSavedDesigns] = useState([]);
     const [showTutorial, setShowTutorial] = useState(false);
     const [ambience, setAmbience] = useState('day'); // 'day' | 'night'
-    const [is3D, setIs3D] = useState(false);
+    const [show3DView, setShow3DView] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
 
     // Check if user has seen tutorial
@@ -474,10 +475,11 @@ const EventCreator = () => {
                                 <i className={`fas ${ambience === 'day' ? 'fa-sun' : 'fa-moon'}`}></i>
                             </button>
                             <button
-                                onClick={() => setIs3D(!is3D)}
-                                className={`tool-btn ${is3D ? 'active' : ''}`}
-                                aria-label="Toggle 3D Holographic View"
-                                title="Holographic View"
+                                onClick={() => setShow3DView(true)}
+                                className="tool-btn"
+                                aria-label="Enter 3D Holodeck"
+                                title="Enter 3D Holodeck"
+                                style={{ color: '#E91E63' }}
                             >
                                 <i className="fas fa-cube"></i>
                             </button>
@@ -508,8 +510,8 @@ const EventCreator = () => {
 
                     <div
                         ref={canvasRef}
-                        className={`canvas ${gridVisible ? 'grid-visible' : ''} ${ambience} ${is3D ? 'iso-mode' : ''}`}
-                        style={{ transform: is3D ? `scale(${zoom}) rotateX(60deg) rotateZ(-45deg)` : `scale(${zoom})` }}
+                        className={`canvas ${gridVisible ? 'grid-visible' : ''} ${ambience}`}
+                        style={{ transform: `scale(${zoom})` }}
                         onDrop={handleCanvasDrop}
                         onDragOver={(e) => e.preventDefault()}
                         onClick={() => setSelectedItem(null)}
@@ -669,6 +671,15 @@ const EventCreator = () => {
 
             {/* Tutorial Overlay */}
             {showTutorial && <Tutorial onClose={() => setShowTutorial(false)} />}
+
+            {/* 3D Holodeck Overlay */}
+            {show3DView && (
+                <Event3DView
+                    items={canvasItems}
+                    ambience={ambience}
+                    onClose={() => setShow3DView(false)}
+                />
+            )}
         </div>
     );
 };
