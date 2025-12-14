@@ -69,7 +69,7 @@ const Services = () => {
                                     <li key={idx}>{feature}</li>
                                 ))}
                             </ul>
-                            {service.link.startsWith('/corporate') ? (
+                            {service.title === 'Decor and Ambience' ? (
                                 <Link to={service.link} className="service-btn">
                                     <span>Explore</span>
                                     <svg viewBox="0 0 24 24">
@@ -77,12 +77,9 @@ const Services = () => {
                                     </svg>
                                 </Link>
                             ) : (
-                                <a href={service.link} className="service-btn">
-                                    <span>Explore</span>
-                                    <svg viewBox="0 0 24 24">
-                                        <path d="M7 7l5 5-5 5m5-5h-12" />
-                                    </svg>
-                                </a>
+                                <button className="service-btn disabled" disabled>
+                                    <span>Coming Soon</span>
+                                </button>
                             )}
                         </div>
                     </div>

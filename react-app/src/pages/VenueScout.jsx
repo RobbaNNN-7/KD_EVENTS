@@ -15,7 +15,8 @@ const VenueScout = () => {
             description: "A colossal structure of marble and gold, echoing with the whispers of history.",
             image: "/assets/images/dest_wedding-1.jpeg",
             color: "#FFD700", // Gold
-            soundType: "classical"
+            soundType: "classical",
+            coordinates: { lat: 33.7294, lng: 73.0931 } // Islamabad - Margalla area
         },
         {
             id: 2,
@@ -24,7 +25,8 @@ const VenueScout = () => {
             description: "Surrounded by bioluminescent flora, this garden comes alive when the sun sets.",
             image: "/assets/images/outdoor_event.png",
             color: "#00FF7F", // Spring Green
-            soundType: "nature"
+            soundType: "nature",
+            coordinates: { lat: 33.6844, lng: 73.0479 } // Islamabad - F-7 sector
         },
         {
             id: 3,
@@ -33,7 +35,8 @@ const VenueScout = () => {
             description: "A futuristic rooftop suspending you above the pulse of the city.",
             image: "/assets/images/concert.jpg",
             color: "#00BFFF", // Deep Sky Blue
-            soundType: "city"
+            soundType: "city",
+            coordinates: { lat: 33.7077, lng: 73.0498 } // Islamabad - Blue Area
         },
         {
             id: 4,
@@ -42,7 +45,8 @@ const VenueScout = () => {
             description: "Where the waves compose the symphony for your vows.",
             image: "/assets/images/dest_wedding-3.jpeg",
             color: "#00CED1", // Dark Turquoise
-            soundType: "ocean"
+            soundType: "ocean",
+            coordinates: { lat: 24.8607, lng: 67.0011 } // Karachi - Beach area
         }
     ];
 
@@ -95,7 +99,14 @@ const VenueScout = () => {
                                 <h2 className="venue-title" data-text={venue.name}>{venue.name}</h2>
                                 <h3 className="venue-tagline">{venue.tagline}</h3>
                                 <p className="venue-description">{venue.description}</p>
-                                <button className="explore-btn">
+                                <button
+                                    className="explore-btn"
+                                    onClick={() => {
+                                        // Open Google Maps 3D aerial view of the venue
+                                        const url = `https://www.google.com/maps/@${venue.coordinates.lat},${venue.coordinates.lng},500a,35y,39.48t/data=!3m1!1e3`;
+                                        window.open(url, '_blank');
+                                    }}
+                                >
                                     <span>Teleport Here</span>
                                     <div className="btn-line"></div>
                                 </button>
