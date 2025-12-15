@@ -23,9 +23,9 @@ const EventItem3D = ({ item, isSelected, onSelect, onUpdate, movementPlane }) =>
     // Track 3D position locally to prevent reset during drag
     const initialElevation = item.elevation3D !== undefined ? item.elevation3D : item.height / 400;
     const [localPosition, setLocalPosition] = useState([
-        (item.x - 400) / 50,
+        ((item.x + item.width / 2) - 400) / 50, // Convert Top-Left to Center X
         initialElevation,
-        (item.y - 300) / 50
+        ((item.y + item.height / 2) - 300) / 50 // Convert Top-Left to Center Y (mapped to Z)
     ]);
 
     useCursor(hovered);
@@ -108,8 +108,13 @@ const EventItem3D = ({ item, isSelected, onSelect, onUpdate, movementPlane }) =>
                     onMouseUp={() => {
                         if (meshRef.current) {
                             const pos = meshRef.current.position;
-                            const newX = (pos.x * 50) + 400;
-                            const newY = (pos.z * 50) + 300;
+
+                            // Convert 3D Center X back to 2D Top-Left X
+                            const newX = (pos.x * 50) + 400 - (item.width / 2);
+
+                            // Convert 3D Center Z back to 2D Top-Left Y
+                            const newY = (pos.z * 50) + 300 - (item.height / 2);
+
                             const newElevation = pos.y;
 
                             // Update local position state to keep it in sync
@@ -164,9 +169,15 @@ const OrientationGuides = () => {
                 RIGHT
             </Text>
             {/* Canvas Border Outline (16x12 matches 800x600 pixel canvas scaled by 50) */}
+            {/* Thick White Border */}
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
                 <planeGeometry args={[16, 12]} />
-                <meshBasicMaterial color="rgba(255,255,255,0.3)" wireframe />
+                <meshBasicMaterial color="#ffffff" wireframe linewidth={3} />
+            </mesh>
+            {/* Semi-transparent fill to highlight the active area */}
+            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]}>
+                <planeGeometry args={[16, 12]} />
+                <meshBasicMaterial color="#ffffff" transparent opacity={0.1} />
             </mesh>
         </group>
     );
