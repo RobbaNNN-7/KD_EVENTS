@@ -649,13 +649,25 @@
     color: #e74c3c !important;
 }
 
-/* Accessibility */
+/* Accessibility - Strong Focus Indicators */
 .object-card:focus,
 .canvas-item:focus,
-button:focus {
-    outline: 3px solid var(--accent-color);
-    outline-offset: 2px;
+button:focus,
+.category-btn:focus,
+.tab:focus {
+    outline: none;
+    /* Use box-shadow for rounded corners */
+    box-shadow: 0 0 0 3px var(--accent-color), 0 0 0 6px rgba(255, 255, 255, 0.9);
+    z-index: 1000;
+    transform: scale(1.02);
+    /* SLight zoom to indicate selection */
 }
+
+/* Ensure focus works on the canvas items specifically */
+.canvas-item:focus {
+    border-color: var(--accent-color);
+}
+
 
 /* Print Styles */
 @media print {

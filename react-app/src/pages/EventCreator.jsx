@@ -435,6 +435,33 @@ const EventCreator = () => {
         announce('Item deleted');
     };
 
+    const updateSelectedItemPosition = (dx, dy) => {
+        setCanvasItems(currentItems => {
+            const id = selectedItem;
+            if (!id) return currentItems;
+
+            const item = currentItems.find(i => i.id === id);
+            if (!item) return currentItems;
+
+            const newX = Math.round(item.x + dx);
+            const newY = Math.round(item.y + dy);
+
+            const constrainedX = Math.max(0, Math.min(800 - item.width, newX));
+            const constrainedY = Math.max(0, Math.min(600 - item.height, newY));
+
+            const newItems = currentItems.map(i => {
+                if (i.id === id) {
+                    return { ...i, x: constrainedX, y: constrainedY };
+                }
+                return i;
+            });
+
+            // Debounce history addition for smooth movement
+            // We don't want every pixel move to be a history state
+            return newItems;
+        });
+    };
+
     const changeLayer = (direction) => {
         setCanvasItems(currentItems => {
             const id = selectedItem;
@@ -540,6 +567,27 @@ const EventCreator = () => {
 
     useEffect(() => {
         const handleKeyDown = (e) => {
+            // Ignore if typing in an input
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return;
+            }
+
+            // Arrow Keys for Movement
+            if (selectedItem && (e.key.startsWith('Arrow'))) {
+                e.preventDefault();
+                const step = e.shiftKey ? 10 : 1; // Shift to move faster
+                let dx = 0;
+                let dy = 0;
+
+                if (e.key === 'ArrowUp') dy = -step;
+                if (e.key === 'ArrowDown') dy = step;
+                if (e.key === 'ArrowLeft') dx = -step;
+                if (e.key === 'ArrowRight') dx = step;
+
+                updateSelectedItemPosition(dx, dy);
+                return;
+            }
+
             if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
                 e.preventDefault();
                 undo();
@@ -683,10 +731,16 @@ const EventCreator = () => {
                                         onDragStart={() => setDraggedObject(obj)}
                                         onTouchStart={(e) => handleTouchStart(e, obj)}
                                         onTouchEnd={handleTouchEnd}
-                                        onClick={() => addItemToCanvas(obj)} // Fallback click to add
+                                        onClick={() => addItemToCanvas(obj)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                e.preventDefault();
+                                                addItemToCanvas(obj);
+                                            }
+                                        }}
                                         role="button"
                                         tabIndex={0}
-                                        aria-label={`Drag ${obj.name} to canvas`}
+                                        aria-label={`Add ${obj.name} to canvas`}
                                         data-tooltip={obj.name}
                                     >
                                         <div className="object-icon">{obj.icon}</div>
@@ -806,6 +860,14 @@ const EventCreator = () => {
                             >
                                 <i className="fas fa-compress"></i>
                             </button>
+                            <button
+                                onClick={() => setShowTutorial(true)}
+                                className="tool-btn"
+                                aria-label="Show Tutorial"
+                                data-tooltip="Help / Tutorial"
+                            >
+                                <i className="fas fa-question-circle"></i>
+                            </button>
                         </div>
                     </div>
 
@@ -836,6 +898,13 @@ const EventCreator = () => {
                                     }}
                                     onMouseDown={(e) => handleItemMouseDown(e, item)}
                                     onClick={(e) => e.stopPropagation()} /* Prevent click bubbling to canvas which causes deselection */
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            setSelectedItem(item.id);
+                                        }
+                                    }}
                                     role="button"
                                     tabIndex={0}
                                     aria-label={`${item.name} object`}

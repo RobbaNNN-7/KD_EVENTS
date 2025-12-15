@@ -289,13 +289,14 @@ const Event3DView = ({ items, ambience, onClose, onUpdateItem, onSelectItem, sel
                 <directionalLight position={[10, 20, 5]} intensity={1.5} castShadow shadow-mapSize={[1024, 1024]} />
                 <Sparkles count={50} scale={20} size={6} speed={0.4} opacity={0.3} color="#ffaa00" />
 
-                {/* Visual Flair - ContactShadows removed due to flickering */}
-                {/* <ContactShadows resolution={1024} scale={50} blur={2} opacity={0.5} far={10} color="#000000" /> */}
+                {/* Visual Flair - ContactShadows enabled for realism */}
+                <ContactShadows resolution={1024} scale={50} blur={2} opacity={0.5} far={10} color="#000000" />
 
                 <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} />
 
                 <group position={[0, 0, 0]} onPointerMissed={() => onSelectItem(null)}>
                     <ReflectiveFloor />
+                    <gridHelper args={[16, 16, 0xff0000, 0x222222]} position={[0, 0.02, 0]} />
                     <OrientationGuides />
                     {items.map(item => (
                         <EventItem3D

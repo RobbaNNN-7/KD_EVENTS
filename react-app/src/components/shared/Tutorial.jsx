@@ -38,6 +38,11 @@ const Tutorial = ({ onClose }) => {
             title: "Save & Export",
             description: "Save your designs for later or export them as images. Your creativity is just beginning!",
             icon: "💾"
+        },
+        {
+            title: "Keyboard Shortcuts",
+            description: "No mouse? No problem! Use Tab to navigate, Enter to select items, and Arrow keys to move them around.",
+            icon: "⌨️"
         }
     ];
 
