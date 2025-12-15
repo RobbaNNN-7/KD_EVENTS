@@ -181,7 +181,6 @@ const ReflectiveFloor = () => {
                 resolution={1024}
                 mixBlur={1}
                 mixStrength={40}
-                roughness={0.1}
                 depthScale={1.2}
                 minDepthThreshold={0.4}
                 maxDepthThreshold={1.4}
@@ -280,16 +279,18 @@ const Event3DView = ({ items, ambience, onClose, onUpdateItem, onSelectItem, sel
                 ✕
             </button>
 
+            {/* Adjusted Camera for better initial view */}
             <Canvas shadows camera={{ position: [8, 8, 8], fov: 50 }} dpr={[1, 2]}>
                 <color attach="background" args={['#87CEEB']} />
                 <Environment preset="sunset" />
                 <Cloud opacity={0.5} speed={0.4} width={10} depth={1.5} segments={20} position={[0, 10, -10]} />
+
                 <ambientLight intensity={0.6} />
                 <directionalLight position={[10, 20, 5]} intensity={1.5} castShadow shadow-mapSize={[1024, 1024]} />
                 <Sparkles count={50} scale={20} size={6} speed={0.4} opacity={0.3} color="#ffaa00" />
 
-                {/* Visual Flair */}
-                <ContactShadows resolution={1024} scale={50} blur={2} opacity={0.5} far={10} color="#000000" />
+                {/* Visual Flair - ContactShadows removed due to flickering */}
+                {/* <ContactShadows resolution={1024} scale={50} blur={2} opacity={0.5} far={10} color="#000000" /> */}
 
                 <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} />
 

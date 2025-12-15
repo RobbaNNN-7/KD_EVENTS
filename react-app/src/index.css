@@ -38,6 +38,7 @@ body {
   color: var(--text-color);
   background-color: var(--bg-color);
   transition: background-color var(--transition-speed) ease;
+  /* zoom: 0.9; Removed due to layout alignment issues */
 }
 
 a {

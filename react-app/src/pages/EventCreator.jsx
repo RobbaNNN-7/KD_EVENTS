@@ -186,10 +186,92 @@ const EventCreator = () => {
 
     const [activeCategory, setActiveCategory] = useState('all');
 
+    // Helper function to add an item to the canvas
+    const addItemToCanvas = useCallback((objectToAdd, dropX, dropY) => {
+        // Default to center if coordinates not provided (e.g., via click)
+        const canvasRect = canvasRef.current ? canvasRef.current.getBoundingClientRect() : { width: 800, height: 600 };
+        // If dropX/Y are provided, use them. Otherwise center. 
+        // Note: dropX/Y are relative to canvas top-left and scaled by zoom already in handleTouchEnd? 
+        // No, handleTouchEnd passed (touch - left) / zoom.
+
+        let finalX = dropX;
+        let finalY = dropY;
+
+        if (finalX === undefined || finalY === undefined) {
+            // Center placement
+            finalX = (canvasRect.width / zoom) / 2;
+            finalY = (canvasRect.height / zoom) / 2;
+        }
+
+        const newItem = {
+            id: Date.now(),
+            type: objectToAdd.id,
+            name: objectToAdd.name,
+            icon: objectToAdd.icon,
+            x: finalX - (objectToAdd.defaultSize.width / 2),
+            y: finalY - (objectToAdd.defaultSize.height / 2),
+            width: objectToAdd.defaultSize.width,
+            height: objectToAdd.defaultSize.height,
+            rotation: 0,
+            color: objectToAdd.color,
+            zIndex: canvasItems.length,
+            opacity: 1,
+        };
+
+        setCanvasItems(prevItems => {
+            const newItems = [...prevItems, newItem];
+            addToHistory(newItems);
+            return newItems;
+        });
+        setSelectedItem(newItem.id);
+
+        // Trigger confetti
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 2000);
+        showToast('Item added to canvas', 'success');
+        announce(`Added ${newItem.name} to canvas`);
+    }, [canvasItems, addToHistory, showToast, announce]); // Dependencies for useCallback
+
     // Handle drag start from object library
     const handleDragStart = (e, object) => {
         setDraggedObject(object);
         e.dataTransfer.effectAllowed = 'copy';
+    };
+
+    // Handle drag over canvas
+    const handleDragOver = (e) => {
+        e.preventDefault();
+    };
+
+    // Mobile Touch DnD Logic
+    const handleTouchStart = (e, object) => {
+        // e.preventDefault(); // Don't prevent default here to allow scrolling if not dragging yet
+        setDraggedObject(object);
+    };
+
+    const handleTouchMove = (e) => {
+        // Just track movement if needed, mainly controlled by CSS touch-action
+    };
+
+    const handleTouchEnd = (e) => {
+        if (draggedObject && canvasRef.current) {
+            const touch = e.changedTouches[0];
+            const canvasRect = canvasRef.current.getBoundingClientRect();
+
+            // Check if drop is within canvas
+            if (
+                touch.clientX >= canvasRect.left &&
+                touch.clientX <= canvasRect.right &&
+                touch.clientY >= canvasRect.top &&
+                touch.clientY <= canvasRect.bottom
+            ) {
+                const x = (touch.clientX - canvasRect.left) / zoom;
+                const y = (touch.clientY - canvasRect.top) / zoom;
+
+                addItemToCanvas(draggedObject, x, y);
+            }
+            setDraggedObject(null);
+        }
     };
 
     // Handle drop on canvas
@@ -534,8 +616,11 @@ const EventCreator = () => {
                                     <div
                                         key={obj.id}
                                         className="object-card"
-                                        draggable
-                                        onDragStart={(e) => handleDragStart(e, obj)}
+                                        draggable="true"
+                                        onDragStart={() => setDraggedObject(obj)}
+                                        onTouchStart={(e) => handleTouchStart(e, obj)}
+                                        onTouchEnd={handleTouchEnd}
+                                        onClick={() => addItemToCanvas(obj)} // Fallback click to add
                                         role="button"
                                         tabIndex={0}
                                         aria-label={`Drag ${obj.name} to canvas`}

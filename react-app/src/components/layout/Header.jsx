@@ -38,12 +38,13 @@ const Header = () => {
             <nav>
                 <div className="logo-container">
                     {/* <img src="react-app/src/assets/images/hd.png" className="logo-img" /> */}
-                    <div className="logo-text">HD Events</div>
+                    <Link to="/" style={{ textDecoration: 'none' }}>
+                        <div className="logo-text">HD Events</div>
+                    </Link>
                 </div>
 
                 <ul className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
                     <li><Link to="/#services" onClick={closeMobileMenu}>Services</Link></li>
-                    <li><Link to="/venues" onClick={closeMobileMenu}>Venues</Link></li>
                     <li><Link to="/packages" onClick={closeMobileMenu}>Packages</Link></li>
                     <li><Link to="/live" onClick={closeMobileMenu}>Live</Link></li>
                     <li><Link to="/gallery" onClick={closeMobileMenu}>Gallery</Link></li>
