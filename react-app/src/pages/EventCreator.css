@@ -1,4 +1,5 @@
 /* Event Creator - Professional Canvas UI */
+/* Event Creator - Professional Canvas UI */
 .event-creator {
     height: 100vh;
     display: flex;
@@ -8,6 +9,8 @@
     overflow: hidden;
     padding-top: 80px;
     /* Space for global header */
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 /* Secondary Header (Toolbar) */
@@ -239,34 +242,23 @@
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    transition: all 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
     position: relative;
-    overflow: hidden;
+    /* Add these for better performance */
+    will-change: border-color, box-shadow;
 }
 
-.object-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(231, 76, 60, 0.1) 0%, transparent 70%);
-    opacity: 0;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.object-card:hover::before {
-    opacity: 1;
-}
 
 .object-card:hover {
     border-color: var(--accent-color);
-    transform: translateY(-4px);
     box-shadow: 0 8px 25px rgba(231, 76, 60, 0.2);
+}
+
+/* Add active state for when dragging */
+.object-card.dragging {
+    cursor: grabbing;
+    opacity: 0.8;
+    box-shadow: 0 12px 35px rgba(231, 76, 60, 0.3);
 }
 
 .object-icon {
@@ -350,6 +342,13 @@
     background: #fafbfc;
     position: relative;
     overflow: hidden;
+    /* Cursor set to default (black arrow) per user request for better visibility on white grid */
+    cursor: default;
+    touch-action: none;
+}
+
+.canvas-container:active {
+    cursor: move;
 }
 
 .canvas-toolbar {
@@ -407,29 +406,37 @@
 }
 
 /* Canvas */
+/* Canvas */
 .canvas {
     width: 800px;
     height: 600px;
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -400px;
+    margin-top: -300px;
     background: white;
-    margin: auto;
-    /* Center in container */
     border-radius: 12px;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transform-origin: center center;
-    /* Update transform origin since we are centering it */
-    /* Fix for clickability offset issues */
-    transition: transform 0.3s ease;
+    transition: none;
+    /* Remove transition for smoother panning */
     touch-action: none;
-    /* Prevent scrolling while dragging on touch devices */
+    will-change: transform;
+    /* Hint to browser for better performance */
+    backfaceVisibility: hidden;
+    perspective: 1000px;
 }
 
 .canvas.grid-visible {
     background-image:
         linear-gradient(rgba(231, 76, 60, 0.08) 1px, transparent 1px),
         linear-gradient(90deg, rgba(231, 76, 60, 0.08) 1px, transparent 1px);
-    background-size: 20px 20px;
+    background-size: 40px 40px;
+    /* Larger grid for better visibility */
+    background-position: -1px -1px;
+    /* Align grid properly */
 }
 
 .canvas-item {
@@ -441,12 +448,16 @@
     border: 2px solid transparent;
     border-radius: 8px;
     cursor: move;
-    transition: all 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     touch-action: none;
     user-select: none;
     /* Prevent text selection cursor */
     /* Essential for touch dragging */
+    will-change: transform;
+    backfaceVisibility: hidden;
+    perspective: 1000px;
+    transform-style: preserve-3d;
 }
 
 /* Canvas Placeholder Text */
@@ -540,11 +551,7 @@
         min-height: 500px;
     }
 
-    .canvas {
-        margin: 0.5rem;
-        min-height: 100%;
-        /* Fill container */
-    }
+
 }
 
 /* Smooth Scrollbars */
@@ -582,6 +589,64 @@
 
 .canvas-item {
     animation: fadeIn 0.3s ease;
+}
+
+/* Context Menu */
+.context-menu {
+    position: fixed;
+    background: white;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    z-index: 9999;
+    min-width: 180px;
+    display: flex;
+    flex-direction: column;
+}
+
+.context-menu button {
+    background: none;
+    border: none;
+    padding: 0.6rem 1rem;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: background 0.2s;
+}
+
+.context-menu button:hover {
+    background: #f5f7fa;
+    color: var(--accent-color);
+}
+
+.context-menu button i {
+    width: 20px;
+    text-align: center;
+    color: #777;
+}
+
+.context-menu button:hover i {
+    color: var(--accent-color);
+}
+
+.menu-divider {
+    height: 1px;
+    background: #e0e0e0;
+    margin: 0.3rem 0;
+}
+
+.delete-option:hover {
+    background: #fff5f5 !important;
+    color: #e74c3c !important;
+}
+
+.delete-option:hover i {
+    color: #e74c3c !important;
 }
 
 /* Accessibility */

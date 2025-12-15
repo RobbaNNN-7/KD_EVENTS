@@ -14,46 +14,39 @@ const EventCreator = () => {
     const [isDragging, setIsDragging] = useState(false);
     const [panelOpen, setPanelOpen] = useState('objects');
     const [zoom, setZoom] = useState(1);
+    const [pan, setPan] = useState({ x: 0, y: 0 });
+    const [isPanning, setIsPanning] = useState(false);
+    const lastPanPoint = useRef({ x: 0, y: 0 });
     const [gridVisible, setGridVisible] = useState(true);
     const [savedDesigns, setSavedDesigns] = useState([]);
     const [showTutorial, setShowTutorial] = useState(false);
-    const [ambience, setAmbience] = useState('day'); // 'day' | 'night'
+    const [ambience, setAmbience] = useState('day');
     const [show3DView, setShow3DView] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
 
-    // Keep ref of items for event listeners
     const itemsRef = useRef(canvasItems);
     useEffect(() => {
         itemsRef.current = canvasItems;
     }, [canvasItems]);
 
-    // HCI Enhancement: Undo/Redo History
     const [history, setHistory] = useState([[]]);
     const [historyIndex, setHistoryIndex] = useState(0);
     const maxHistoryLength = 50;
 
-    // HCI Enhancement: Toast Notifications
     const [toast, setToast] = useState(null);
-
-    // HCI Enhancement: Keyboard Shortcuts Panel
     const [showShortcuts, setShowShortcuts] = useState(false);
-
-    // HCI Enhancement: Accessibility Announcements (for screen readers)
     const [announcement, setAnnouncement] = useState('');
 
-    // Show toast notification
     const showToast = useCallback((message, type = 'info') => {
         setToast({ message, type });
         setTimeout(() => setToast(null), 3000);
     }, []);
 
-    // Announce for screen readers
     const announce = useCallback((message) => {
         setAnnouncement(message);
         setTimeout(() => setAnnouncement(''), 1000);
     }, []);
 
-    // Add to history (for undo/redo)
     const addToHistory = useCallback((newItems) => {
         const newHistory = history.slice(0, historyIndex + 1);
         newHistory.push([...newItems]);
@@ -64,7 +57,6 @@ const EventCreator = () => {
         setHistoryIndex(newHistory.length - 1);
     }, [history, historyIndex]);
 
-    // Undo action
     const undo = useCallback(() => {
         if (historyIndex > 0) {
             const newIndex = historyIndex - 1;
@@ -75,7 +67,6 @@ const EventCreator = () => {
         }
     }, [historyIndex, history, showToast, announce]);
 
-    // Redo action
     const redo = useCallback(() => {
         if (historyIndex < history.length - 1) {
             const newIndex = historyIndex + 1;
@@ -86,7 +77,6 @@ const EventCreator = () => {
         }
     }, [historyIndex, history, showToast, announce]);
 
-    // Check if user has seen tutorial
     useEffect(() => {
         const tutorialCompleted = localStorage.getItem('eventCreatorTutorialCompleted');
         if (!tutorialCompleted) {
@@ -94,39 +84,27 @@ const EventCreator = () => {
         }
     }, []);
 
-    // Event objects library
     const eventObjects = [
-        // Structures
         { id: 'stage', name: 'Stage', icon: '🎭', category: 'structures', color: '#8B4513', defaultSize: { width: 200, height: 150 } },
         { id: 'booth', name: 'Standard Booth', icon: '🏪', category: 'structures', color: '#4CAF50', defaultSize: { width: 100, height: 100 } },
         { id: 'entrance', name: 'Grand Entrance', icon: '🚪', category: 'structures', color: '#9E9E9E', defaultSize: { width: 120, height: 60 } },
         { id: 'dance-floor', name: 'Dance Floor', icon: '🕺', category: 'structures', color: '#FF6F00', defaultSize: { width: 180, height: 180 } },
         { id: 'bar', name: 'Bar Counter', icon: '🍷', category: 'structures', color: '#6D4C41', defaultSize: { width: 140, height: 80 } },
-
-        // Wedding
         { id: 'mandap', name: 'Wedding Mandap', icon: '🛕', category: 'wedding', color: '#E91E63', defaultSize: { width: 200, height: 200 } },
         { id: 'floral-arch', name: 'Floral Arch', icon: '🌸', category: 'wedding', color: '#F48FB1', defaultSize: { width: 120, height: 40 } },
         { id: 'aisle', name: 'Aisle Runner', icon: '🛣️', category: 'wedding', color: '#FFCDD2', defaultSize: { width: 60, height: 300 } },
         { id: 'wedding-stage', name: 'Bride/Groom Stage', icon: '💒', category: 'wedding', color: '#FCE4EC', defaultSize: { width: 250, height: 120 } },
-
-        // Concert
         { id: 'line-array', name: 'Line Array Speaker', icon: '🔊', category: 'concert', color: '#212121', defaultSize: { width: 60, height: 120 } },
         { id: 'truss', name: 'Lighting Truss', icon: '🏗️', category: 'concert', color: '#9E9E9E', defaultSize: { width: 300, height: 40 } },
         { id: 'spotlight', name: 'Spotlight', icon: '🔦', category: 'concert', color: '#FFD600', defaultSize: { width: 40, height: 40 } },
         { id: 'barrier', name: 'Crowd Barrier', icon: '🚧', category: 'concert', color: '#607D8B', defaultSize: { width: 100, height: 20 } },
-
-        // Qawali/Traditional
         { id: 'floor-seating', name: 'Floor Gadda', icon: '🛋️', category: 'qawali', color: '#FF5722', defaultSize: { width: 100, height: 100 } },
         { id: 'bolster', name: 'Bolster (Gao Takia)', icon: '🌭', category: 'qawali', color: '#FFAB91', defaultSize: { width: 40, height: 20 } },
         { id: 'low-table', name: 'Low Wooden Table', icon: '🟫', category: 'qawali', color: '#795548', defaultSize: { width: 80, height: 80 } },
         { id: 'lantern', name: 'Decorative Lantern', icon: '🏮', category: 'qawali', color: '#FFC107', defaultSize: { width: 30, height: 50 } },
-
-        // Destination
         { id: 'cabana', name: 'Beach Cabana', icon: '⛺', category: 'destination', color: '#FFF9C4', defaultSize: { width: 150, height: 150 } },
         { id: 'torch', name: 'Tiki Torch', icon: '🔥', category: 'destination', color: '#FF6E40', defaultSize: { width: 30, height: 30 } },
         { id: 'sunshade', name: 'Sunshade', icon: '☂️', category: 'destination', color: '#03A9F4', defaultSize: { width: 80, height: 80 } },
-
-        // Furniture & Equipment
         { id: 'table-round', name: 'Round Table', icon: '⭕', category: 'furniture', color: '#795548', defaultSize: { width: 80, height: 80 } },
         { id: 'table-rect', name: 'Rectangular Table', icon: '⬛', category: 'furniture', color: '#8D6E63', defaultSize: { width: 120, height: 60 } },
         { id: 'chair', name: 'Chair', icon: '🪑', category: 'furniture', color: '#607D8B', defaultSize: { width: 40, height: 40 } },
@@ -137,7 +115,6 @@ const EventCreator = () => {
         { id: 'dj-booth', name: 'DJ Console', icon: '🎧', category: 'equipment', color: '#333333', defaultSize: { width: 100, height: 60 } },
     ];
 
-    // Categories for filtering
     const categories = [
         { id: 'all', name: 'All', icon: '📦' },
         { id: 'wedding', name: 'Wedding', icon: '💍' },
@@ -150,7 +127,6 @@ const EventCreator = () => {
         { id: 'equipment', name: 'Equip.', icon: '🎛️' },
     ];
 
-    // Pre-built templates
     const templates = [
         {
             id: 'wedding-royal',
@@ -158,7 +134,7 @@ const EventCreator = () => {
             icon: '👑',
             items: [
                 { id: 1, type: 'mandap', name: 'Wedding Mandap', icon: '🛕', x: 300, y: 100, width: 250, height: 250, rotation: 0, color: '#E91E63', zIndex: 1, opacity: 1 },
-                { id: 2, type: 'aisle', name: 'Aisle Runner', icon: '🛣️', x: 400, y: 360, width: 60, height: 300, rotation: 0, color: '#FFCDD2', zIndex: 0, opacity: 1 },
+                { id: 2, type: 'aisle', name: 'Aisle Runner', icon: '🛣️', x: 400, y: 360, width: 60, height: 240, rotation: 0, color: '#FFCDD2', zIndex: 0, opacity: 1 },
                 { id: 3, type: 'chair', name: 'Chair', icon: '🪑', x: 250, y: 400, width: 40, height: 40, rotation: 0, color: '#607D8B', zIndex: 1, opacity: 1 },
                 { id: 4, type: 'chair', name: 'Chair', icon: '🪑', x: 550, y: 400, width: 40, height: 40, rotation: 0, color: '#607D8B', zIndex: 1, opacity: 1 },
             ]
@@ -186,19 +162,13 @@ const EventCreator = () => {
 
     const [activeCategory, setActiveCategory] = useState('all');
 
-    // Helper function to add an item to the canvas
     const addItemToCanvas = useCallback((objectToAdd, dropX, dropY) => {
-        // Default to center if coordinates not provided (e.g., via click)
         const canvasRect = canvasRef.current ? canvasRef.current.getBoundingClientRect() : { width: 800, height: 600 };
-        // If dropX/Y are provided, use them. Otherwise center. 
-        // Note: dropX/Y are relative to canvas top-left and scaled by zoom already in handleTouchEnd? 
-        // No, handleTouchEnd passed (touch - left) / zoom.
 
         let finalX = dropX;
         let finalY = dropY;
 
         if (finalX === undefined || finalY === undefined) {
-            // Center placement
             finalX = (canvasRect.width / zoom) / 2;
             finalY = (canvasRect.height / zoom) / 2;
         }
@@ -225,40 +195,72 @@ const EventCreator = () => {
         });
         setSelectedItem(newItem.id);
 
-        // Trigger confetti
         setShowConfetti(true);
         setTimeout(() => setShowConfetti(false), 2000);
         showToast('Item added to canvas', 'success');
         announce(`Added ${newItem.name} to canvas`);
-    }, [canvasItems, addToHistory, showToast, announce]); // Dependencies for useCallback
+    }, [canvasItems.length, addToHistory, showToast, announce, zoom]);
 
-    // Handle drag start from object library
     const handleDragStart = (e, object) => {
         setDraggedObject(object);
         e.dataTransfer.effectAllowed = 'copy';
     };
 
-    // Handle drag over canvas
     const handleDragOver = (e) => {
         e.preventDefault();
     };
 
-    // Mobile Touch DnD Logic
     const handleTouchStart = (e, object) => {
-        // e.preventDefault(); // Don't prevent default here to allow scrolling if not dragging yet
-        setDraggedObject(object);
+        if (object) {
+            setDraggedObject(object);
+            return;
+        }
+
+        if (!draggedObject && (e.target.classList.contains('canvas-container') || e.target.classList.contains('canvas'))) {
+            setIsPanning(true);
+            lastPanPoint.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
     };
 
     const handleTouchMove = (e) => {
-        // Just track movement if needed, mainly controlled by CSS touch-action
+        if (isPanning) {
+            e.preventDefault();
+            const container = canvasRef.current?.parentElement;
+            if (!container) return;
+
+            const currentX = e.touches[0].clientX;
+            const currentY = e.touches[0].clientY;
+            const dx = currentX - lastPanPoint.current.x;
+            const dy = currentY - lastPanPoint.current.y;
+
+            setPan(prev => {
+                const newX = prev.x + dx;
+                const newY = prev.y + dy;
+
+                const contentWidth = 800 * zoom;
+                const contentHeight = 600 * zoom;
+                const containerWidth = container.clientWidth;
+                const containerHeight = container.clientHeight;
+
+                const limitX = Math.max(0, (contentWidth - containerWidth) / 2);
+                const limitY = Math.max(0, (contentHeight - containerHeight) / 2);
+
+                return {
+                    x: Math.max(-limitX, Math.min(limitX, newX)),
+                    y: Math.max(-limitY, Math.min(limitY, newY))
+                };
+            });
+            lastPanPoint.current = { x: currentX, y: currentY };
+        }
     };
 
     const handleTouchEnd = (e) => {
+        setIsPanning(false);
+
         if (draggedObject && canvasRef.current) {
             const touch = e.changedTouches[0];
             const canvasRect = canvasRef.current.getBoundingClientRect();
 
-            // Check if drop is within canvas
             if (
                 touch.clientX >= canvasRect.left &&
                 touch.clientX <= canvasRect.right &&
@@ -274,15 +276,70 @@ const EventCreator = () => {
         }
     };
 
-    // Handle drop on canvas
+    const handleMouseDown = (e) => {
+        if (e.target.classList.contains('canvas-container') || e.target.classList.contains('canvas')) {
+            const container = canvasRef.current?.parentElement;
+            if (!container) return;
+
+            const contentWidth = 800 * zoom;
+            const contentHeight = 600 * zoom;
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+
+            if (contentWidth > containerWidth || contentHeight > containerHeight) {
+                setIsPanning(true);
+                lastPanPoint.current = { x: e.clientX, y: e.clientY };
+                setSelectedItem(null);
+            }
+        }
+    };
+
+    const handleMouseMove = (e) => {
+        if (isPanning) {
+            const container = canvasRef.current?.parentElement;
+            if (!container) return;
+
+            const dx = e.clientX - lastPanPoint.current.x;
+            const dy = e.clientY - lastPanPoint.current.y;
+
+            setPan(prev => {
+                const newX = prev.x + dx;
+                const newY = prev.y + dy;
+
+                const contentWidth = 800 * zoom;
+                const contentHeight = 600 * zoom;
+                const containerWidth = container.clientWidth;
+                const containerHeight = container.clientHeight;
+
+                const limitX = Math.max(0, (contentWidth - containerWidth) / 2);
+                const limitY = Math.max(0, (contentHeight - containerHeight) / 2);
+
+                return {
+                    x: Math.max(-limitX, Math.min(limitX, newX)),
+                    y: Math.max(-limitY, Math.min(limitY, newY))
+                };
+            });
+
+            lastPanPoint.current = { x: e.clientX, y: e.clientY };
+        }
+    };
+
+    const handleMouseUp = () => {
+        setIsPanning(false);
+    };
+
     const handleCanvasDrop = (e) => {
         e.preventDefault();
         if (!draggedObject) return;
 
         const canvas = canvasRef.current;
         const rect = canvas.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / zoom;
-        const y = (e.clientY - rect.top) / zoom;
+
+        const screenX = e.clientX - rect.left;
+        const screenY = e.clientY - rect.top;
+
+        const x = screenX / zoom;
+        const y = screenY / zoom;
 
         const newItem = {
             id: Date.now(),
@@ -301,18 +358,16 @@ const EventCreator = () => {
 
         const newItems = [...canvasItems, newItem];
         setCanvasItems(newItems);
-        addToHistory(newItems); // HCI: Add to history
+        addToHistory(newItems);
         setSelectedItem(newItem.id);
         setDraggedObject(null);
 
-        // Trigger confetti
         setShowConfetti(true);
         setTimeout(() => setShowConfetti(false), 2000);
         showToast('Item added to canvas', 'success');
         announce(`Added ${newItem.name} to canvas`);
     };
 
-    // Handle canvas item drag
     const handleItemMouseDown = (e, item) => {
         e.stopPropagation();
         setSelectedItem(item.id);
@@ -328,11 +383,18 @@ const EventCreator = () => {
             const deltaY = (moveEvent.clientY - startY) / zoom;
 
             setCanvasItems(items =>
-                items.map(i =>
-                    i.id === item.id
-                        ? { ...i, x: startItemX + deltaX, y: startItemY + deltaY }
-                        : i
-                )
+                items.map(i => {
+                    if (i.id === item.id) {
+                        const newX = startItemX + deltaX;
+                        const newY = startItemY + deltaY;
+
+                        const constrainedX = Math.max(0, Math.min(800 - i.width, newX));
+                        const constrainedY = Math.max(0, Math.min(600 - i.height, newY));
+
+                        return { ...i, x: constrainedX, y: constrainedY };
+                    }
+                    return i;
+                })
             );
         };
 
@@ -340,7 +402,6 @@ const EventCreator = () => {
             setIsDragging(false);
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
-            // HCI: Add to history on drag end
             addToHistory(itemsRef.current);
         };
 
@@ -348,20 +409,23 @@ const EventCreator = () => {
         document.addEventListener('mouseup', handleMouseUp);
     };
 
-    // Update selected item property
     const updateSelectedItem = (property, value) => {
-        const newItems = canvasItems.map(item =>
-            item.id === selectedItem ? { ...item, [property]: value } : item
-        );
+        const newItems = canvasItems.map(item => {
+            if (item.id === selectedItem) {
+                const updated = { ...item, [property]: value };
+
+                // Constrain position to keep item within canvas bounds
+                updated.x = Math.max(0, Math.min(800 - updated.width, updated.x));
+                updated.y = Math.max(0, Math.min(600 - updated.height, updated.y));
+
+                return updated;
+            }
+            return item;
+        });
         setCanvasItems(newItems);
-        // Debounce history update for sliders could be better, but simple push for now
-        // For sliders, this might create too many history entries. 
-        // Ideally we'd only push on mouseUp of slider, but onChange is simpler for now.
-        // Let's assume discrete updates or acceptable overhead.
         addToHistory(newItems);
     };
 
-    // Delete selected item
     const deleteSelectedItem = () => {
         const newItems = canvasItems.filter(item => item.id !== selectedItem);
         setCanvasItems(newItems);
@@ -371,27 +435,42 @@ const EventCreator = () => {
         announce('Item deleted');
     };
 
-    // Change layer order
     const changeLayer = (direction) => {
-        const item = canvasItems.find(i => i.id === selectedItem);
-        if (!item) return;
+        setCanvasItems(currentItems => {
+            const id = selectedItem;
+            if (!id) return currentItems;
 
-        const newZIndex = direction === 'forward'
-            ? Math.min(item.zIndex + 1, canvasItems.length - 1)
-            : Math.max(item.zIndex - 1, 0);
+            const item = currentItems.find(i => i.id === id);
+            if (!item) return currentItems;
 
-        const newItems = canvasItems.map(i => {
-            if (i.id === selectedItem) return { ...i, zIndex: newZIndex };
-            // Simple z-index swap or adjustment could be more complex, 
-            // but for now just clamping is enough for visual stacking in CSS grid/flex or absolute
-            return i;
+            const currentZ = item.zIndex;
+            const maxZ = Math.max(...currentItems.map(i => i.zIndex));
+            const minZ = Math.min(...currentItems.map(i => i.zIndex));
+
+            let newItems;
+            if (direction === 'forward' && currentZ < maxZ) {
+                const itemAbove = currentItems.find(i => i.zIndex === currentZ + 1);
+                newItems = currentItems.map(i => {
+                    if (i.id === id) return { ...i, zIndex: currentZ + 1 };
+                    if (i.id === itemAbove?.id) return { ...i, zIndex: currentZ };
+                    return i;
+                });
+            } else if (direction === 'back' && currentZ > minZ) {
+                const itemBelow = currentItems.find(i => i.zIndex === currentZ - 1);
+                newItems = currentItems.map(i => {
+                    if (i.id === id) return { ...i, zIndex: currentZ - 1 };
+                    if (i.id === itemBelow?.id) return { ...i, zIndex: currentZ };
+                    return i;
+                });
+            } else {
+                return currentItems;
+            }
+
+            setTimeout(() => addToHistory(newItems), 0);
+            return newItems;
         });
-
-        setCanvasItems(newItems);
-        addToHistory(newItems);
     };
 
-    // Save design
     const saveDesign = () => {
         const designName = prompt('Enter a name for this design:');
         if (!designName) return;
@@ -408,7 +487,6 @@ const EventCreator = () => {
         announce('Design saved');
     };
 
-    // Load design
     const loadDesign = (design) => {
         setCanvasItems(design.items);
         addToHistory(design.items);
@@ -417,7 +495,6 @@ const EventCreator = () => {
         announce(`Loaded design ${design.name}`);
     };
 
-    // Clear canvas
     const clearCanvas = () => {
         if (confirm('Are you sure you want to clear the entire canvas?')) {
             const newItems = [];
@@ -429,18 +506,15 @@ const EventCreator = () => {
         }
     };
 
-    // Export as image
     const exportCanvas = () => {
         alert('Export functionality would generate a PNG/PDF of your event layout!');
     };
 
-    // Load Template
     const loadTemplate = (template) => {
         if (canvasItems.length > 0 && !confirm('Loading a template will clear your current design. Continue?')) {
             return;
         }
 
-        // Generate unique IDs for template items to avoid conflict
         const newItems = template.items.map((item, index) => ({
             ...item,
             id: Date.now() + index
@@ -450,7 +524,6 @@ const EventCreator = () => {
         addToHistory(newItems);
         setSelectedItem(null);
 
-        // Optional: Set specific ambience for template if added to template data
         if (template.id.includes('night') || template.id.includes('concert')) {
             setAmbience('night');
         } else {
@@ -465,29 +538,23 @@ const EventCreator = () => {
         ? eventObjects
         : eventObjects.filter(obj => obj.category === activeCategory);
 
-    // Keyboard shortcuts
     useEffect(() => {
         const handleKeyDown = (e) => {
-            // Undo: Ctrl+Z
             if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
                 e.preventDefault();
                 undo();
             }
-            // Redo: Ctrl+Y
             if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
                 e.preventDefault();
                 redo();
             }
-            // Save: Ctrl+S
             if ((e.ctrlKey || e.metaKey) && e.key === 's') {
                 e.preventDefault();
                 saveDesign();
             }
-            // Toggle Shortcuts: ? (Shift+/)
             if (e.key === '?') {
                 setShowShortcuts(prev => !prev);
             }
-
             if (e.key === 'Delete' && selectedItem) {
                 deleteSelectedItem();
             }
@@ -499,18 +566,16 @@ const EventCreator = () => {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [selectedItem, undo, redo]); // Added dependencies
+    }, [selectedItem, undo, redo]);
 
     return (
         <div className="event-creator">
             <Header />
 
-            {/* HCI Enhancement: Live Region for Screen Readers */}
             <div className="sr-only" role="status" aria-live="polite">
                 {announcement}
             </div>
 
-            {/* HCI Enhancement: Toast Notifications */}
             {toast && (
                 <div className={`toast toast-${toast.type} slide-in`}>
                     <i className={`fas ${toast.type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}`}></i>
@@ -518,7 +583,6 @@ const EventCreator = () => {
                 </div>
             )}
 
-            {/* HCI Enhancement: Keyboard Shortcuts Panel */}
             {showShortcuts && (
                 <div className="shortcuts-panel" role="dialog" aria-label="Keyboard Shortcuts">
                     <div className="shortcuts-header">
@@ -536,7 +600,6 @@ const EventCreator = () => {
                 </div>
             )}
 
-            {/* Toolbar / Secondary Header */}
             <div className="creator-header">
                 <div className="header-left">
                     <button
@@ -685,7 +748,13 @@ const EventCreator = () => {
                 </aside>
 
                 {/* Canvas Area */}
-                <main className="canvas-container">
+                <main
+                    className="canvas-container"
+                    onMouseDown={handleMouseDown}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseUp}
+                >
                     <div className="canvas-toolbar">
                         <div className="toolbar-group">
                             <button
@@ -730,7 +799,7 @@ const EventCreator = () => {
                                 <i className="fas fa-search-plus"></i>
                             </button>
                             <button
-                                onClick={() => setZoom(1)}
+                                onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }}
                                 className="tool-btn"
                                 aria-label="Reset zoom"
                                 data-tooltip="Reset Zoom (Fit)"
@@ -743,12 +812,12 @@ const EventCreator = () => {
                     <div
                         ref={canvasRef}
                         className={`canvas ${gridVisible ? 'grid-visible' : ''} ${ambience}`}
-                        style={{ transform: `scale(${zoom})` }}
+                        style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})` }}
                         onDrop={handleCanvasDrop}
                         onDragOver={(e) => e.preventDefault()}
                         onClick={() => setSelectedItem(null)}
                     >
-                        {canvasItems
+                        {[...canvasItems]
                             .sort((a, b) => a.zIndex - b.zIndex)
                             .map(item => (
                                 <div
@@ -757,6 +826,7 @@ const EventCreator = () => {
                                     style={{
                                         left: `${item.x}px`,
                                         top: `${item.y}px`,
+                                        position: 'absolute',
                                         width: `${item.width}px`,
                                         height: `${item.height}px`,
                                         backgroundColor: item.color,
