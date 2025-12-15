@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import Tutorial from '../components/shared/Tutorial';
 import Header from '../components/layout/Header';
@@ -631,21 +632,59 @@ const EventCreator = () => {
                 </div>
             )}
 
-            {showShortcuts && (
-                <div className="shortcuts-panel" role="dialog" aria-label="Keyboard Shortcuts">
-                    <div className="shortcuts-header">
-                        <h3>Keyboard Shortcuts</h3>
-                        <button onClick={() => setShowShortcuts(false)} aria-label="Close">×</button>
+            {showShortcuts && createPortal(
+                <div
+                    className="shortcuts-overlay"
+                    onClick={() => setShowShortcuts(false)}
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100vw',
+                        height: '100vh',
+                        background: 'rgba(0, 0, 0, 0.5)',
+                        backdropFilter: 'blur(4px)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 10000,
+                        margin: 0,
+                        padding: 0
+                    }}
+                >
+                    <div
+                        className="shortcuts-panel"
+                        role="dialog"
+                        aria-label="Keyboard Shortcuts"
+                        onClick={(e) => e.stopPropagation()}
+                        style={{
+                            position: 'relative',
+                            background: 'white',
+                            padding: '24px',
+                            borderRadius: '16px',
+                            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
+                            width: '90%',
+                            maxWidth: '500px',
+                            margin: 'auto', /* Extra safety for centering */
+                            transform: 'none', /* Ensure no transform offsets */
+                            inset: 'auto' /* clear specific positioning */
+                        }}
+                    >
+                        <div className="shortcuts-header">
+                            <h3>Keyboard Shortcuts</h3>
+                            <button onClick={() => setShowShortcuts(false)} aria-label="Close">×</button>
+                        </div>
+                        <div className="shortcuts-grid">
+                            <div className="shortcut-item"><span>Undo</span> <kbd>Ctrl</kbd> + <kbd>Z</kbd></div>
+                            <div className="shortcut-item"><span>Redo</span> <kbd>Ctrl</kbd> + <kbd>Y</kbd></div>
+                            <div className="shortcut-item"><span>Save</span> <kbd>Ctrl</kbd> + <kbd>S</kbd></div>
+                            <div className="shortcut-item"><span>Delete</span> <kbd>Del</kbd></div>
+                            <div className="shortcut-item"><span>Deselect</span> <kbd>Esc</kbd></div>
+                            <div className="shortcut-item"><span>Shortcuts</span> <kbd>?</kbd></div>
+                        </div>
                     </div>
-                    <div className="shortcuts-grid">
-                        <div className="shortcut-item"><span>Undo</span> <kbd>Ctrl</kbd> + <kbd>Z</kbd></div>
-                        <div className="shortcut-item"><span>Redo</span> <kbd>Ctrl</kbd> + <kbd>Y</kbd></div>
-                        <div className="shortcut-item"><span>Save</span> <kbd>Ctrl</kbd> + <kbd>S</kbd></div>
-                        <div className="shortcut-item"><span>Delete</span> <kbd>Del</kbd></div>
-                        <div className="shortcut-item"><span>Deselect</span> <kbd>Esc</kbd></div>
-                        <div className="shortcut-item"><span>Shortcuts</span> <kbd>?</kbd></div>
-                    </div>
-                </div>
+                </div>,
+                document.body
             )}
 
             <div className="creator-header">
